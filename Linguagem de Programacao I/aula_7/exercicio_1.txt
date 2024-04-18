@@ -1,0 +1,12 @@
+Responda as perguntas abaixo. Se achar necessário, faça testes no  programa em C.
+
+a) Explique a diferença entre
+p++: aponta para o proximo endereço de memoria.
+
+(*p)++: soma 1 ao valor onde o ponteiro esta apontando.
+
+*(p++): é uma junção dos dois primeiro obtem o valor para onde o ponteiro e depois 
+incrementa para apontar para o proximo valor de memoria.
+
+b) O que quer dizer *(p+10):
+quer dizer que você quer ver o valor de posição 10 vezes a frente no array.

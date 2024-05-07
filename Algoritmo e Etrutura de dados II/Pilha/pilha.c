@@ -2,6 +2,8 @@
 #include "TAD_pilha.h"
 #include "TAD_pilha_v1.h"
 // #include "TAD_pilha_v2.h"
+#include "william_pilha_inverte.h"
+
 int main()
 {
     pilha p, d;
@@ -9,7 +11,7 @@ int main()
     inicializapilha(&p);
     while (1)
     {
-        printf("PILHA: 1-Empilhar 2-Desempilhar 3-Topo 4-Tamanho 5-Duplicar 6-Replica auxiliar 0-Sair\n");
+        printf("PILHA: 1-Empilhar 2-Desempilhar 3-Topo 4-Tamanho 5-Duplicar 6-Replica auxiliar 7-Inverter pilha 0-Sair\n");
         printf("Informe a opcao: ");
         scanf("%d", &opcao);
         if (opcao == 0)
@@ -48,15 +50,39 @@ int main()
         }
         if (opcao == 5)
         {
-
-            replicapilha(&p, &d);
-            printf("Pilha duplicada");
+            if (pilhavazia(&p))
+            {
+                printf("A primeira pilha esta vazia, nao e possivel replica-la\n");
+            }
+            else
+            {
+                replicapilha(&p, &d);
+                printf("Pilha duplicada");
+            }
         }
         if (opcao == 6)
         {
-
-            replicapilhaauxiliar(&p, &d);
-            printf("Pilha duplicada aux");
+            if (pilhavazia(&p))
+            {
+                printf("A primeira pilha esta vazia, nao e possivel replica-la\n");
+            }
+            else
+            {
+                replicapilhaauxiliar(&p, &d);
+                printf("Pilha duplicada aux");
+            }
+        }
+        if (opcao == 7)
+        {
+            if (pilhavazia(&p))
+            {
+                printf("A pilha esta vazia, nao e possivel inverte-la\n");
+            }
+            else
+            {
+                invertepilha(&p);
+                printf("Pilha invertida");
+            }
         }
         printf("\n");
     }

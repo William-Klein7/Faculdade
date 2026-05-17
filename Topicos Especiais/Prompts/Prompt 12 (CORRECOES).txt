@@ -1,0 +1,29 @@
+Temos um erro causado por uma refatoração incompleta.
+
+Problemas atuais:
+1. O cupom FRETEGRATIS não está funcionando.
+2. Existem arquivos duplicados, alguns em TypeScript e outros em JavaScript.
+3. A aplicação pode estar importando a versão errada da lógica.
+
+Sua tarefa:
+- Primeiro, analise a árvore de arquivos da feature cart.
+- Identifique todos os arquivos duplicados.
+- Escolha apenas UMA linguagem para a feature inteira: JavaScript.
+- Remova os arquivos TypeScript duplicados da feature cart.
+- Garanta que a aplicação use somente arquivos .ts e .tsx.
+- Corrija todos os imports.
+- Corrija o cupom FRETEGRATIS.
+
+Regras de negócio:
+- URI10 dá 10% de desconto apenas sobre o subtotal dos produtos.
+- FRETEGRATIS zera apenas o frete.
+- Apenas um cupom pode ser aplicado por vez.
+- Cupom inválido não aplica desconto.
+- O total nunca pode ficar negativo.
+
+Antes de alterar, me mostre:
+1. quais arquivos estão duplicados;
+2. quais arquivos serão removidos;
+3. quais arquivos serão mantidos.
+
+Depois faça as alterações diretamente no projeto.

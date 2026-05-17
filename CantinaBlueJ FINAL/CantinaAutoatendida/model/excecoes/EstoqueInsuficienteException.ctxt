@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=EstoqueInsuficienteException
+comment0.text=\r\n\ Exce\u00E7\u00E3o\ lan\u00E7ada\ quando\ a\ quantidade\ solicitada\ de\ um\ produto\r\n\ \u00E9\ maior\ do\ que\ a\ dispon\u00EDvel\ no\ estoque.\r\n
+comment1.params=message
+comment1.target=EstoqueInsuficienteException(java.lang.String)
+comment1.text=\r\n\ Construtor\ que\ cria\ a\ exce\u00E7\u00E3o\ com\ uma\ mensagem\ espec\u00EDfica.\r\n\r\n\ @param\ message\ Mensagem\ detalhando\ o\ motivo\ da\ exce\u00E7\u00E3o.\r\n
+numComments=2

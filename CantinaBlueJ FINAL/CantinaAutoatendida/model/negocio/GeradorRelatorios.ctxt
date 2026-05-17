@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=GeradorRelatorios
+comment0.text=\r\n\ Classe\ utilit\u00E1ria\ respons\u00E1vel\ por\ gerar\ diferentes\ tipos\ de\ relat\u00F3rios\ textuais.\r\n\ <p>\r\n\ Esta\ classe\ \u00E9\ stateless\ e\ seus\ m\u00E9todos\ recebem\ os\ dados\ necess\u00E1rios\r\n\ (como\ hist\u00F3rico\ de\ pedidos\ ou\ o\ estoque\ atual)\ para\ processar\ e\ retornar\r\n\ uma\ {@code\ String}\ formatada\ contendo\ o\ relat\u00F3rio\ solicitado.\r\n\ </p>\r\n\r\n\ @author\ William,\ Murilo\ e\ Calebe\r\n\ @version\ Final\r\n\ @since\ 2024-07-08\r\n
+comment1.params=historico
+comment1.target=java.lang.String\ gerarRelatorioTransacoes(java.util.List)
+comment1.text=\r\n\ Gera\ um\ relat\u00F3rio\ cronol\u00F3gico\ de\ todas\ as\ transa\u00E7\u00F5es\ (pedidos)\ realizadas.\r\n\ Para\ cada\ pedido,\ exibe\ a\ data,\ a\ hora\ e\ o\ valor\ total.\r\n\r\n\ @param\ historico\ A\ lista\ de\ todos\ os\ {@link\ Pedido}s\ conclu\u00EDdos.\r\n\ @return\ Uma\ {@code\ String}\ formatada\ com\ o\ relat\u00F3rio\ de\ transa\u00E7\u00F5es,\r\n\ ou\ uma\ mensagem\ indicando\ que\ n\u00E3o\ h\u00E1\ registros.\r\n
+comment2.params=historico
+comment2.target=java.lang.String\ gerarRelatorioMaisVendidos(java.util.List)
+comment2.text=\r\n\ Gera\ um\ relat\u00F3rio\ dos\ produtos\ mais\ vendidos,\ ordenados\ por\ quantidade.\r\n\ O\ m\u00E9todo\ agrega\ a\ quantidade\ vendida\ de\ cada\ produto\ em\ todo\ o\ hist\u00F3rico\r\n\ de\ pedidos\ e\ os\ lista\ em\ ordem\ decrescente.\r\n\r\n\ @param\ historico\ A\ lista\ de\ todos\ os\ {@link\ Pedido}s\ conclu\u00EDdos.\r\n\ @return\ Uma\ {@code\ String}\ formatada\ com\ o\ ranking\ de\ produtos\ mais\ vendidos.\r\n
+comment3.params=historico
+comment3.target=java.lang.String\ gerarRelatorioHorarioDePico(java.util.List)
+comment3.text=\r\n\ Gera\ um\ relat\u00F3rio\ de\ vendas\ agrupadas\ por\ hora\ do\ dia\ para\ identificar\ hor\u00E1rios\ de\ pico.\r\n\ O\ relat\u00F3rio\ \u00E9\ ordenado\ cromaticamente\ pela\ hora\ (00h,\ 01h,\ 02h...).\r\n\r\n\ @param\ historico\ A\ lista\ de\ todos\ os\ {@link\ Pedido}s\ conclu\u00EDdos.\r\n\ @return\ Uma\ {@code\ String}\ formatada\ com\ a\ contagem\ de\ vendas\ por\ faixa\ de\ hora.\r\n
+comment4.params=estoque
+comment4.target=java.lang.String\ gerarRelatorioDeValidade(Estoque)
+comment4.text=\r\n\ Gera\ um\ relat\u00F3rio\ sobre\ o\ estado\ de\ validade\ dos\ produtos\ em\ estoque.\r\n\ O\ relat\u00F3rio\ \u00E9\ dividido\ em\ duas\ se\u00E7\u00F5es\:\ produtos\ que\ j\u00E1\ venceram\ e\r\n\ produtos\ que\ est\u00E3o\ pr\u00F3ximos\ de\ vencer\ (nos\ pr\u00F3ximos\ 7\ dias).\r\n\r\n\ @param\ estoque\ O\ objeto\ {@link\ Estoque}\ contendo\ os\ produtos\ a\ serem\ analisados.\r\n\ @return\ Uma\ {@code\ String}\ formatada\ com\ o\ status\ de\ validade\ dos\ produtos.\r\n
+numComments=5

@@ -1,0 +1,24 @@
+#BlueJ class context
+comment0.target=TelaGestaoCaixa
+comment0.text=\r\n\ Representa\ uma\ janela\ de\ di\u00E1logo\ (JDialog)\ para\ o\ gerenciamento\ do\ caixa.\r\n\ <p>\r\n\ Esta\ tela\ permite\ ao\ administrador\ visualizar\ a\ quantidade\ de\ cada\ nota\ e\ moeda\r\n\ dispon\u00EDvel\ no\ caixa,\ al\u00E9m\ de\ realizar\ opera\u00E7\u00F5es\ de\ abastecimento\ (adicionar\ dinheiro)\r\n\ e\ retirada\ de\ valores.\r\n\r\n\ @author\ William,\ Murilo\ e\ Calebe\r\n\ @version\ Final\r\n\ @since\ 2024-07-08\r\n
+comment1.params=parent\ caixa
+comment1.target=TelaGestaoCaixa(javax.swing.JFrame,\ model.negocio.Caixa)
+comment1.text=\r\n\ Construtor\ da\ tela\ de\ Gest\u00E3o\ de\ Caixa.\r\n\r\n\ @param\ parent\ O\ JFrame\ pai\ ao\ qual\ este\ di\u00E1logo\ modal\ est\u00E1\ associado.\r\n\ @param\ caixa\ \ A\ inst\u00E2ncia\ do\ {@link\ Caixa}\ que\ ser\u00E1\ gerenciada.\r\n
+comment2.params=r\ c
+comment2.target=boolean\ isCellEditable(int,\ int)
+comment3.params=
+comment3.target=void\ abastecer()
+comment3.text=\r\n\ Inicia\ o\ fluxo\ para\ abastecer\ o\ caixa.\r\n\ Solicita\ ao\ usu\u00E1rio\ o\ valor\ da\ nota/moeda\ e\ a\ quantidade,\ e\ ent\u00E3o\r\n\ chama\ o\ m\u00E9todo\ de\ neg\u00F3cio\ para\ adicionar\ o\ dinheiro.\ Trata\ exce\u00E7\u00F5es\r\n\ de\ formato\ e\ de\ regras\ de\ neg\u00F3cio.\r\n
+comment4.params=
+comment4.target=void\ retirar()
+comment4.text=\r\n\ Inicia\ o\ fluxo\ para\ retirar\ dinheiro\ do\ caixa.\r\n\ Solicita\ ao\ usu\u00E1rio\ o\ valor\ da\ nota/moeda\ e\ a\ quantidade\ a\ ser\ retirada,\r\n\ e\ ent\u00E3o\ chama\ o\ m\u00E9todo\ de\ neg\u00F3cio\ correspondente.\ Trata\ exce\u00E7\u00F5es.\r\n
+comment5.params=
+comment5.target=void\ carregarTabela()
+comment5.text=\r\n\ Carrega\ (ou\ recarrega)\ os\ dados\ do\ caixa\ na\ tabela\ da\ interface.\r\n\ Limpa\ a\ tabela\ e\ a\ preenche\ com\ as\ notas/moedas\ e\ suas\ respectivas\r\n\ quantidades,\ ordenadas\ do\ maior\ valor\ para\ o\ menor.\r\n
+comment6.params=tabela
+comment6.target=void\ estilizarTabela(javax.swing.JTable)
+comment6.text=\r\n\ Aplica\ um\ estilo\ visual\ escuro\ e\ consistente\ a\ uma\ tabela.\r\n\ @param\ tabela\ A\ {@link\ JTable}\ a\ ser\ estilizada.\r\n
+comment7.params=botao
+comment7.target=void\ personalizarBotao(javax.swing.JButton)
+comment7.text=\r\n\ Aplica\ um\ estilo\ visual\ padr\u00E3o\ aos\ bot\u00F5es\ da\ tela.\r\n\ @param\ botao\ O\ {@link\ JButton}\ a\ ser\ personalizado.\r\n
+numComments=8

@@ -1,0 +1,179 @@
+ENUNCIADO  DA  ATIVIDADE  
+Disciplina:  Sistemas  Distribuídos  
+Assunto:  Comunicação  entre  Processos  com  Java  RMI  (Remote  Method  Invocation)  
+Atividade:  Desenvolvimento  de  um  Sistema  de  Consulta  de  Clima  Distribuído  
+Contexto:  Para  ﬁns  de  registro  de  presença  e  carga  horária  referente  a  este  sábado,  cada  
+aluno
+ 
+deverá
+ 
+implementar
+ 
+um
+ 
+sistema
+ 
+cliente-servidor
+ 
+utilizando
+ 
+a
+ 
+tecnologia
+ 
+RMI.
+ 
+O
+ 
+objetivo
+ 
+é
+ 
+compreender
+ 
+como
+ 
+um
+ 
+objeto
+ 
+em
+ 
+uma
+ 
+JVM
+ 
+(Java
+ 
+Virtual
+ 
+Machine)
+ 
+pode
+ 
+invocar
+ 
+métodos
+ 
+de
+ 
+um
+ 
+objeto
+ 
+em
+ 
+outra
+ 
+JVM
+ 
+distinta.
+ 
+Tarefa:  Você  deve  desenvolver  um  sistema  onde  um  Servidor  mantém  uma  base  de  
+dados
+ 
+(ex:
+ 
+um
+ 
+HashMap)
+ 
+com
+ 
+temperaturas
+ 
+de
+ 
+diferentes
+ 
+cidades.
+ 
+O
+ 
+Cliente
+ 
+deve
+ 
+ser
+ 
+capaz
+ 
+de
+ 
+enviar
+ 
+o
+ 
+nome
+ 
+de
+ 
+uma
+ 
+cidade
+ 
+e
+ 
+receber
+ 
+a
+ 
+temperatura
+ 
+correspondente
+ 
+via
+ 
+rede.
+ 
+Requisitos  de  Entrega:  1.  Código  fonte  completo  (.java).  
+2.  Print  do  console  do  Servidor  mostrando  que  recebeu  a  chamada.  
+3.  Print  do  console  do  Cliente  exibindo  o  resultado  da  consulta.  
+4.  Prazo:  28/03  8h.  
+ 
+                   
+ 
+CHEAT  SHEET:  Use  este  guia  como  referência  para  não  esquecer  nenhum  
+passo
+ 
+essencial
+ 
+da
+ 
+arquitetura
+ 
+RMI.
+ 
+1.  A  Interface  Remota  ●  Deve  ser  public.  ●  Deve  estender  java.rmi.Remote.  ●  Todos  os  métodos  devem  lançar  java.rmi.RemoteException.  
+2.  A  Implementação  (Objeto  Remoto)  ●  Deve  implementar  a  interface  criada  no  passo  1.  ●  Deve  estender  java.rmi.server.UnicastRemoteObject.  ●  O  construtor  deve  lançar  RemoteException.  
+ 
+3.  O  Registro  e  Servidor  ●  Use  LocateRegistry.createRegistry(1099);  para  iniciar  o  serviço  de  nomes  via  
+código.
+ ●  Use  Naming.rebind("NomeDoServico",  objetoInstanciado);  para  publicar  o  
+objeto.
+ 
+4.  O  Cliente  ●  Use  IClima  stub  =  (IClima)  
+Naming.lookup("rmi://localhost/NomeDoServico");
+ 
+para
+ 
+obter
+ 
+a
+ 
+referência
+ 
+do
+ 
+objeto
+ 
+remoto.
+ ●  Invoque  o  método  como  se  fosse  um  objeto  local  (o  RMI  cuida  da  rede).  
+ 
+ 
+Checklist  de  Erros  Comuns:  
+Erro  Provável  Causa  
+Connection  Refused  O  rmiregistry  não  foi  iniciado  ou  o  Servidor  não  está  rodando.  
+NotBoundException  O  nome  usado  no  lookup  do  cliente  é  diferente  do  rebind  do  servidor.  
+UnmarshalException  Falta  de  sincronia  entre  as  classes  ou  falta  do  Serializable  (se  usar  objetos  próprios).  
+ 

@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=SessaoAdmin
+comment0.text=\r\n\ Gerencia\ a\ l\u00F3gica\ de\ autentica\u00E7\u00E3o\ para\ o\ acesso\ administrativo\ do\ sistema.\r\n\ <p>\r\n\ Esta\ classe\ fornece\ um\ mecanismo\ simples\ para\ validar\ as\ credenciais\ de\ um\r\n\ usu\u00E1rio\ administrador\ contra\ valores\ pr\u00E9-definidos\ e\ constantes.\r\n\ </p>\r\n\ <p>\r\n\ <strong>Aviso\ de\ Seguran\u00E7a\:</strong>\ Esta\ implementa\u00E7\u00E3o\ utiliza\ credenciais\r\n\ fixas\ no\ c\u00F3digo\ ("hardcoded")\ e\ serve\ apenas\ para\ fins\ de\ demonstra\u00E7\u00E3o\ ou\r\n\ aplica\u00E7\u00F5es\ muito\ simples.\ N\u00E3o\ \u00E9\ uma\ pr\u00E1tica\ segura\ para\ ambientes\ de\ produ\u00E7\u00E3o,\r\n\ pois\ as\ credenciais\ ficam\ expostas\ no\ c\u00F3digo-fonte.\r\n\ </p>\r\n\r\n\ @author\ William,\ Murilo\ e\ Calebe\r\n\ @version\ Final\r\n\ @since\ 2024-07-08\r\n
+comment1.params=usuario\ senha
+comment1.target=boolean\ autenticar(java.lang.String,\ java.lang.String)
+comment1.text=\r\n\ Valida\ as\ credenciais\ fornecidas\ pelo\ usu\u00E1rio.\r\n\ <p>\r\n\ Compara\ o\ usu\u00E1rio\ e\ a\ senha\ recebidos\ como\ par\u00E2metro\ com\ as\ constantes\r\n\ internas\ {@code\ USUARIO_CORRETO}\ e\ {@code\ SENHA_CORRETA}.\r\n\ </p>\r\n\r\n\ @param\ usuario\ O\ nome\ de\ usu\u00E1rio\ a\ ser\ verificado.\r\n\ @param\ senha\ \ \ A\ senha\ a\ ser\ verificada.\r\n\ @return\ {@code\ true}\ se\ o\ usu\u00E1rio\ e\ a\ senha\ corresponderem\ exatamente\ aos\r\n\ valores\ corretos,\ {@code\ false}\ caso\ contr\u00E1rio.\r\n
+numComments=2

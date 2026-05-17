@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=TelaRelatorios
+comment0.text=\r\n\ Representa\ uma\ janela\ de\ di\u00E1logo\ (JDialog)\ para\ a\ visualiza\u00E7\u00E3o\ de\ relat\u00F3rios\ do\ sistema.\r\n\ Esta\ tela\ \u00E9\ destinada\ ao\ uso\ administrativo,\ permitindo\ a\ sele\u00E7\u00E3o\ e\ exibi\u00E7\u00E3o\ de\ diferentes\r\n\ tipos\ de\ relat\u00F3rios,\ como\ transa\u00E7\u00F5es\ de\ vendas,\ produtos\ mais\ vendidos,\ hor\u00E1rios\ de\ pico,\r\n\ e\ controle\ de\ validade\ do\ estoque.\r\n\r\n\ @author\ William,\ Murilo\ e\ Calebe\r\n\ @version\ Final\r\n\ @since\ 2024-07-08\r\n
+comment1.params=parent\ estoque\ historicoVendas
+comment1.target=TelaRelatorios(javax.swing.JFrame,\ model.negocio.Estoque,\ java.util.List)
+comment1.text=\r\n\ Construtor\ da\ tela\ de\ relat\u00F3rios.\r\n\ Inicializa\ a\ janela\ de\ di\u00E1logo,\ configura\ seus\ componentes\ visuais\ e\ define\r\n\ os\ listeners\ para\ gerar\ relat\u00F3rios\ com\ base\ na\ sele\u00E7\u00E3o\ do\ usu\u00E1rio.\r\n\r\n\ @param\ parent\ \ \ \ \ \ \ \ \ \ O\ JFrame\ pai\ sobre\ o\ qual\ este\ di\u00E1logo\ ser\u00E1\ exibido.\r\n\ O\ di\u00E1logo\ ser\u00E1\ modal\ em\ rela\u00E7\u00E3o\ a\ este\ pai.\r\n\ @param\ estoque\ \ \ \ \ \ \ \ \ A\ inst\u00E2ncia\ do\ gerenciador\ de\ estoque,\ necess\u00E1ria\ para\r\n\ gerar\ relat\u00F3rios\ relacionados\ a\ produtos\ (ex\:\ validade).\r\n\ @param\ historicoVendas\ A\ lista\ de\ pedidos\ finalizados\ (hist\u00F3rico\ de\ vendas),\r\n\ utilizada\ para\ gerar\ relat\u00F3rios\ de\ transa\u00E7\u00F5es\ e\ performance.\r\n
+numComments=2

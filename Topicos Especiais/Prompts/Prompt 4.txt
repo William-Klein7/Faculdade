@@ -1,0 +1,13 @@
+Agora simplifique os imports usando barrel exports.
+
+Crie ou ajuste estes arquivos:
+- src/features/cart/index.js
+- src/features/cart/components/index.js
+- src/features/cart/hooks/index.js
+- src/features/cart/utils/index.js
+
+Depois altere o App.jsx para importar tudo apenas de:
+
+import { CartList, CartSummary, useCart } from "./features/cart";
+
+Garanta que nenhum arquivo importe diretamente de caminhos internos da feature.

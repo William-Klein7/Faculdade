@@ -1,0 +1,10 @@
+Agora migre somente a feature cart para TypeScript.
+
+Converta os arquivos da feature para .ts e .tsx quando fizer sentido.
+Crie tipos para:
+- CartItem
+- CartSummary
+- CouponCode
+
+Atualize todos os imports.
+Não migre o projeto inteiro, apenas a feature cart.

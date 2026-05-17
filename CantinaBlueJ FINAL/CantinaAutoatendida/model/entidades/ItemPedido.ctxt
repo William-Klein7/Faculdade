@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=ItemPedido
+comment0.text=\r\n\ Representa\ um\ item\ espec\u00EDfico\ dentro\ de\ um\ pedido\ de\ venda.\r\n\ <p>\r\n\ Esta\ classe\ associa\ um\ {@link\ Produto}\ a\ uma\ quantidade\ desejada,\r\n\ permitindo\ o\ c\u00E1lculo\ do\ subtotal\ para\ esse\ item\ espec\u00EDfico\ no\ pedido.\r\n\ Ela\ serve\ como\ um\ componente\ essencial\ para\ a\ classe\ {@code\ Pedido}.\r\n\ </p>\r\n\r\n\ @author\ William,\ Murilo\ e\ Calebe\r\n\ @version\ Final\r\n\ @since\ 2024-07-08\r\n
+comment1.params=produto\ quantidade
+comment1.target=ItemPedido(Produto,\ int)
+comment1.text=\r\n\ Construtor\ para\ criar\ um\ novo\ item\ de\ pedido.\r\n\r\n\ @param\ produto\ \ \ \ A\ inst\u00E2ncia\ do\ {@link\ Produto}\ a\ ser\ adicionada\ ao\ pedido.\r\n\ @param\ quantidade\ A\ quantidade\ de\ unidades\ deste\ produto.\r\n
+comment2.params=
+comment2.target=Produto\ getProduto()
+comment2.text=\r\n\ Retorna\ o\ objeto\ Produto\ associado\ a\ este\ item\ de\ pedido.\r\n\r\n\ @return\ A\ inst\u00E2ncia\ de\ {@link\ Produto}.\r\n
+comment3.params=
+comment3.target=int\ getQuantidade()
+comment3.text=\r\n\ Retorna\ a\ quantidade\ de\ unidades\ deste\ item\ no\ pedido.\r\n\r\n\ @return\ A\ quantidade\ do\ produto.\r\n
+comment4.params=
+comment4.target=double\ getSubtotal()
+comment4.text=\r\n\ Calcula\ e\ retorna\ o\ subtotal\ para\ este\ item\ de\ pedido.\r\n\ <p>\r\n\ O\ c\u00E1lculo\ \u00E9\ feito\ multiplicando\ o\ pre\u00E7o\ do\ produto\ pela\ quantidade\ pedida.\r\n\ </p>\r\n\r\n\ @return\ O\ valor\ do\ subtotal\ (pre\u00E7o\ *\ quantidade).\r\n
+numComments=5

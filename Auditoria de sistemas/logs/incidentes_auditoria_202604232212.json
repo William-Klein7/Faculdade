@@ -1,0 +1,43 @@
+{
+"incidentes_auditoria": [
+	{
+		"id_incidente" : 1,
+		"categoria" : "ACESSO_FORA_DO_HORARIO",
+		"descricao" : "Foram identificados logins em horario de madrugada por usuarios da Presidencia, Financeiro e T.I. no ambiente da Eletromissoes.",
+		"risco" : "ALTO",
+		"evidencias" : "usuarios=1,2,3,304,305,306; janela=03h; tabela=conexoes_bd",
+		"veredicto" : "EM_INVESTIGACAO"
+	},
+	{
+		"id_incidente" : 2,
+		"categoria" : "ACESSO_INDEVIDO_A_DADO_SENSIVEL",
+		"descricao" : "Usuarios de Turmas de Manutencao executaram SELECT em folha_pagamento sem necessidade funcional.",
+		"risco" : "CRITICO",
+		"evidencias" : "usuarios=149,150,151,152,153,154,155,156,157,158,159,160; objeto=folha_pagamento; setor=Turmas de Manutencao",
+		"veredicto" : "INCIDENTE_CONFIRMADO"
+	},
+	{
+		"id_incidente" : 3,
+		"categoria" : "ESCALONAMENTO_INDEVIDO_DE_PRIVILEGIO",
+		"descricao" : "Contas comuns receberam privilegio DBA por executores da T.I. sem justificativa registrada.",
+		"risco" : "CRITICO",
+		"evidencias" : "executores_ti=304,305,306,307; alvos=329,330,331,332; origem=alteracoes_privilegios",
+		"veredicto" : "NAO_CONFORME"
+	},
+	{
+		"id_incidente" : 4,
+		"categoria" : "MULTIPLAS_FALHAS_AUTENTICACAO",
+		"descricao" : "Foram registradas varias tentativas de autenticacao com status FALHA para os mesmos usuarios em curto intervalo.",
+		"risco" : "ALTO",
+		"evidencias" : "usuarios=165,216,269,297; repeticoes=6_por_usuario; origem=conexoes_bd",
+		"veredicto" : "MONITORAMENTO_REFORCADO"
+	},
+	{
+		"id_incidente" : 5,
+		"categoria" : "RISCO_INTERNO",
+		"descricao" : "O conjunto de eventos indica fragilidade de segregacao de funcao e monitoramento de acessos privilegiados.",
+		"risco" : "CRITICO",
+		"evidencias" : "correlacao=conexoes_bd+auditoria_consultas+alteracoes_privilegios",
+		"veredicto" : "ESCALONAR_PARA_COMITE_DE_SEGURANCA"
+	}
+]}

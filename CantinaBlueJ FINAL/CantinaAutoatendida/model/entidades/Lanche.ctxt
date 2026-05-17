@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Lanche
+comment0.text=\r\n\ Representa\ um\ Lanche,\ que\ \u00E9\ um\ tipo\ espec\u00EDfico\ de\ {@link\ Produto}.\r\n\ <p>\r\n\ Esta\ classe\ herda\ todos\ os\ atributos\ e\ comportamentos\ b\u00E1sicos\ da\ classe\ {@link\ Produto},\r\n\ como\ nome,\ pre\u00E7o\ e\ quantidade.\ Ela\ implementa\ o\ m\u00E9todo\ abstrato\ {@code\ getCategoria()},\r\n\ definindo-a\ permanentemente\ como\ "Lanche".\r\n\ </p>\r\n\r\n\ @author\ William,\ Murilo\ e\ Calebe\r\n\ @version\ Final\r\n\ @since\ 2024-07-08\r\n
+comment1.params=nome\ preco\ quantidade\ dataValidade
+comment1.target=Lanche(java.lang.String,\ double,\ int,\ java.time.LocalDate)
+comment1.text=\r\n\ Construtor\ para\ criar\ um\ novo\ objeto\ Lanche.\r\n\ <p>\r\n\ Este\ construtor\ simplesmente\ repassa\ todos\ os\ par\u00E2metros\ para\ o\ construtor\r\n\ da\ superclasse\ {@link\ Produto}.\r\n\ </p>\r\n\r\n\ @param\ nome\ \ \ \ \ \ \ \ \ \ O\ nome\ do\ lanche\ (ex\:\ "Hamb\u00FArguer",\ "Misto\ Quente").\r\n\ @param\ preco\ \ \ \ \ \ \ \ \ O\ pre\u00E7o\ unit\u00E1rio\ do\ lanche.\r\n\ @param\ quantidade\ \ \ \ A\ quantidade\ inicial\ do\ lanche\ em\ estoque.\r\n\ @param\ dataValidade\ \ A\ data\ de\ validade\ do\ lanche.\r\n
+comment2.params=
+comment2.target=java.lang.String\ getCategoria()
+comment2.text=\r\n\ Retorna\ a\ categoria\ espec\u00EDfica\ para\ este\ tipo\ de\ produto.\r\n\r\n\ @return\ A\ string\ fixa\ "Lanche".\r\n\ @override\r\n
+numComments=3

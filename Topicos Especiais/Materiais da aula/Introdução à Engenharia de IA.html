@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introdução à Engenharia de IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Manrope:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d1117;--sf0:#161b22;--sf1:#1c2128;--sf2:#21262d;
+  --txt:#e6edf3;--dim:#7d8590;--mut:#30363d;--bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.14);
+  --blue:#58a6ff;--green:#3fb950;--orange:#f0883e;--purple:#a371f7;
+  --red:#ff7b72;--cyan:#56d4dd;--yellow:#e3b341;--lavender:#c9d1d9;
+  --acc:var(--blue);
+}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font-family:'Manrope',sans-serif;line-height:1.6;font-size:16px}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(var(--bd) 1px,transparent 1px),linear-gradient(90deg,var(--bd) 1px,transparent 1px);background-size:50px 50px}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--acc);transition:width .4s ease,background .6s ease;z-index:200}
+#secbar{position:fixed;bottom:0;left:0;right:0;height:3px;background:var(--acc);opacity:.5;transition:background .6s ease;z-index:200}
+#nav{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;z-index:100}
+.nbtn{background:var(--sf1);border:1px solid var(--bd2);color:var(--dim);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s;user-select:none}
+.nbtn:hover:not(:disabled){border-color:var(--acc);color:var(--acc)}
+.nbtn:disabled{opacity:.2;cursor:default}
+.dots{display:flex;gap:5px;align-items:center;padding:0 6px}
+.dot{width:8px;height:8px;border-radius:4px;background:var(--mut);cursor:pointer;transition:all .25s}
+.dot.on{background:var(--acc);box-shadow:0 0 8px var(--acc);width:24px}
+.dot:hover:not(.on){background:var(--dim)}
+#sctr{position:fixed;bottom:22px;right:22px;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--mut);z-index:100}
+#hint{position:fixed;bottom:22px;left:22px;font-size:13px;color:var(--mut);z-index:100;display:flex;gap:4px;align-items:center;flex-wrap:wrap;max-width:min(520px,42vw)}
+.kk{background:var(--sf1);border:1px solid var(--bd2);border-radius:3px;padding:1px 5px;font-family:'JetBrains Mono',monospace;font-size:11px}
+#deck{position:fixed;inset:0;z-index:1}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;padding:20px 24px 56px;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;overflow-y:auto;overflow-x:hidden}
+.slide.on{opacity:1;transform:translateY(0);pointer-events:all}
+.shead{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1100px;margin-bottom:8px;flex-shrink:0}
+.snum{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--mut);letter-spacing:2px}
+.playbook-ref{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);opacity:.85}
+.stag{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:20px;border:1px solid;font-family:'JetBrains Mono',monospace}
+.ttl{font-family:'Syne',sans-serif;font-size:clamp(1.25rem,2.8vw,2.1rem);font-weight:700;line-height:1.15;text-align:center;margin-bottom:6px;max-width:100%}
+.sub{font-size:.98rem;color:var(--dim);text-align:center;margin-bottom:10px;max-width:100%}
+.sbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:14px;width:100%;max-width:1100px;align-items:start}
+.sbody.wide{grid-template-columns:minmax(0,1.15fr) minmax(0,1.85fr)}
+.sbody.half{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+.sbody.solo{grid-template-columns:minmax(0,1fr)}
+.stxt{display:flex;flex-direction:column;gap:6px;min-width:0}
+.stxt p{font-size:13.5px;color:var(--dim);line-height:1.6}
+.stxt p strong{color:var(--txt)}
+.bullets{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+.bullet{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--dim);padding:6px 10px;background:var(--sf1);border-radius:6px;border-left:3px solid var(--acc)}
+.bullet strong{color:var(--txt);flex-shrink:0}
+.quote{padding:10px 14px;border-left:3px solid var(--acc);background:var(--sf0);border-radius:0 8px 8px 0;font-style:italic;font-size:13px;color:var(--txt);margin-top:6px}
+
+.cover-slide{background:radial-gradient(ellipse at 50% 35%,rgba(88,166,255,.07) 0%,transparent 70%)}
+.cover-slide .ttl{font-size:clamp(1.85rem,4vw,3rem);font-weight:800;margin-bottom:10px}
+.cover-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.era-badge{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:20px;border:1px solid;font-family:'JetBrains Mono',monospace;opacity:.8}
+.cover-visual{margin-top:16px;width:100%;max-width:640px;height:110px;position:relative}
+.ide-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%;height:100%}
+.ide-cell{background:var(--sf1);border:1px solid var(--bd2);border-radius:6px;opacity:0;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);padding:4px 6px;display:flex;flex-direction:column;gap:2px;overflow:hidden}
+.slide.on .ide-cell{animation:fadein .4s ease calc(var(--di)*0.06s) both}
+.ide-line{height:5px;border-radius:2px;background:var(--mut)}
+.ide-line.c1{background:rgba(86,212,221,.4);width:60%}
+.ide-line.c2{background:rgba(88,166,255,.4);width:80%}
+.ide-line.c3{background:rgba(63,185,80,.4);width:45%}
+.ide-line.c4{background:rgba(163,113,247,.4);width:70%}
+
+/* Timeline */
+.timeline-wrap{width:100%;max-width:1040px;margin-top:6px}
+.timeline-track{position:relative;display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0 28px;border-bottom:3px solid rgba(163,113,247,.45)}
+.timeline-node{cursor:pointer;text-align:center;flex:1;min-width:0;padding:0 6px;transition:opacity .25s}
+.timeline-node.dim{opacity:.35}
+.timeline-dot{width:14px;height:14px;border-radius:50%;background:var(--purple);border:2px solid var(--bd2);margin:0 auto 8px;transition:transform .2s,box-shadow .2s}
+.timeline-node:hover .timeline-dot,.timeline-node.on .timeline-dot{transform:scale(1.15);box-shadow:0 0 12px rgba(163,113,247,.5)}
+.timeline-node.on .timeline-dot{background:var(--purple);border-color:var(--cyan)}
+.timeline-year{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--cyan);font-weight:700}
+.timeline-label{font-size:12px;font-weight:700;color:var(--txt);margin-top:4px}
+.timeline-panel{margin-top:12px;background:var(--sf0);border:1px solid var(--bd);border-radius:10px;padding:12px 16px;min-height:72px}
+.timeline-panel p{font-size:13.5px;color:var(--dim);line-height:1.55}
+.tl-play-row{display:flex;justify-content:center;margin-top:8px}
+.tl-play{background:var(--sf1);border:1px solid var(--bd2);color:var(--cyan);padding:6px 14px;border-radius:20px;font-family:'JetBrains Mono',monospace;font-size:11px;cursor:pointer}
+.tl-play:hover{border-color:var(--cyan)}
+
+/* Paradigma 3 col */
+.para-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:1040px;margin-top:8px}
+.para-col{background:var(--sf0);border:2px solid var(--bd2);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px;transition:opacity .25s,filter .25s,border-color .25s}
+.para-col.dim{opacity:.45;filter:grayscale(.4)}
+.para-col.on{border-color:var(--acc);opacity:1;filter:none}
+.para-hdr{font-family:'Syne',sans-serif;font-size:14px;font-weight:700}
+.para-sub{font-size:12px;color:var(--dim)}
+.para-btns{display:flex;gap:6px;justify-content:center;margin-top:6px}
+.para-btn{font-family:'JetBrains Mono',monospace;font-size:11px;padding:4px 10px;border-radius:8px;border:1px solid var(--bd2);background:var(--sf1);color:var(--dim);cursor:pointer}
+.para-btn.on{background:rgba(88,166,255,.12);border-color:var(--blue);color:var(--blue)}
+.callout-box{margin-top:8px;background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.35);border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--dim);max-width:1040px;width:100%}
+.callout-box strong{color:var(--orange)}
+
+/* Tokens */
+.token-demo{display:flex;flex-wrap:wrap;align-items:center;gap:4px;font-family:'JetBrains Mono',monospace;font-size:13px;line-height:1.9;padding:12px;background:var(--sf0);border-radius:8px;border:1px solid var(--bd)}
+.tok{display:inline-block;padding:2px 6px;border-radius:4px;margin:0 1px}
+.tok.a{background:rgba(88,166,255,.2);border:1px solid rgba(88,166,255,.35)}
+.tok.b{background:rgba(227,179,65,.2);border:1px solid rgba(227,179,65,.35)}
+.tok.c{background:rgba(255,123,114,.2);border:1px solid rgba(255,123,114,.35)}
+.token-tools{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}
+.toggle-btn{font-family:'JetBrains Mono',monospace;font-size:11px;padding:5px 12px;border-radius:8px;border:1px solid var(--bd2);background:var(--sf1);color:var(--dim);cursor:pointer}
+.toggle-btn.on{border-color:var(--green);color:var(--green)}
+.word-slider{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--mut)}
+.word-slider input{width:120px}
+
+/* Transformer acc */
+.tf-flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;width:100%;max-width:1040px;margin-top:8px}
+@media(max-width:900px){.tf-flow{grid-template-columns:1fr 1fr}}
+.tf-card{background:var(--sf0);border:1px solid var(--bd2);border-radius:10px;padding:10px;cursor:pointer;text-align:left;transition:border-color .2s,background .2s}
+.tf-card.open{border-color:var(--cyan);background:rgba(86,212,221,.06)}
+.tf-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mut)}
+.tf-title{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin:4px 0}
+.tf-sum{font-size:11.5px;color:var(--dim);line-height:1.45}
+.tf-more{max-height:0;overflow:hidden;transition:max-height .35s ease;padding-top:0}
+.tf-card.open .tf-more{max-height:120px;padding-top:8px}
+
+/* Lab iframe */
+.lab-wrap{width:100%;max-width:1040px;display:flex;flex-direction:column;gap:8px;margin-top:6px}
+.lab-frame-wrap{position:relative;width:100%;height:min(52vh,520px);background:var(--sf0);border:1px solid var(--bd2);border-radius:10px;overflow:hidden}
+.lab-frame{width:100%;height:100%;border:0}
+.lab-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}
+.lab-btn{font-family:'JetBrains Mono',monospace;font-size:11px;padding:6px 14px;border-radius:8px;border:1px solid var(--blue);background:rgba(88,166,255,.1);color:var(--blue);cursor:pointer;text-decoration:none}
+.lab-btn:hover{background:rgba(88,166,255,.18)}
+.lab-note{font-size:11px;color:var(--mut);text-align:center;max-width:720px}
+
+/* Context slider slide */
+.ctx-slide-bar{height:44px;border-radius:8px;background:linear-gradient(90deg,rgba(63,185,80,.45) 0%,rgba(227,179,65,.35) 45%,rgba(240,136,62,.4) 70%,rgba(255,123,114,.55) 100%);position:relative;overflow:hidden;border:1px solid var(--bd)}
+.ctx-slide-knob{position:absolute;top:2px;bottom:2px;width:8px;margin-left:-4px;background:var(--txt);border-radius:4px;box-shadow:0 0 10px rgba(0,0,0,.5);pointer-events:none}
+.ctx-slider{width:100%;max-width:520px;margin:10px auto 0;display:block;accent-color:var(--cyan)}
+.ctx-msg{text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;margin-top:8px;color:var(--green)}
+.ctx-msg.warn{color:var(--yellow)}
+.ctx-msg.bad{color:var(--red)}
+
+/* TTFT */
+.ttft-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:900px;margin-top:8px}
+.ttft-col{background:var(--sf0);border:1px solid var(--bd2);border-radius:10px;padding:12px;transition:box-shadow .25s,border-color .25s}
+.ttft-col.hl{box-shadow:0 0 0 2px var(--acc);border-color:var(--acc)}
+.mini-svg{width:100%;height:100px}
+.ttft-toggle{display:flex;gap:8px;justify-content:center;margin-top:8px;flex-wrap:wrap}
+.ttft-tbtn{font-family:'JetBrains Mono',monospace;font-size:11px;padding:6px 12px;border-radius:8px;border:1px solid var(--bd2);background:var(--sf1);color:var(--dim);cursor:pointer}
+.ttft-tbtn.on{border-color:var(--purple);color:var(--purple)}
+
+/* Prompt stack */
+.pm-stack{display:flex;flex-direction:column;gap:6px;width:100%;max-width:560px;margin:8px auto 0}
+.pm-row{display:flex;gap:10px;align-items:stretch}
+.pm-block{flex:1;background:var(--sf0);border:2px solid var(--bd2);border-radius:8px;padding:10px 12px;cursor:pointer;transition:border-color .2s,background .2s;text-align:left}
+.pm-block.on{border-color:var(--green);background:rgba(63,185,80,.06)}
+.pm-name{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700}
+.pm-desc{font-size:11.5px;color:var(--dim);margin-top:4px;line-height:1.4}
+.pm-ex{font-size:11px;color:var(--cyan);margin-top:6px;font-style:italic;display:none}
+.pm-block.on .pm-ex{display:block}
+.pm-code-snippet{margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:10.5px;background:var(--sf1);border:1px solid var(--bd);padding:8px;border-radius:6px;color:var(--dim);line-height:1.5;max-width:560px;width:100%}
+
+/* IDE cards */
+.ide-battle{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:1040px;margin-top:8px}
+@media(max-width:850px){.ide-battle{grid-template-columns:1fr}}
+.ide-card{background:var(--sf0);border:2px solid var(--bd2);border-radius:10px;padding:12px;transition:transform .2s,border-color .2s}
+.ide-card:hover,.ide-card.expand{border-color:var(--blue);transform:translateY(-2px)}
+.ide-card-h{font-family:'Syne',sans-serif;font-size:15px;font-weight:700;margin-bottom:4px}
+.ide-card-sub{font-size:11px;color:var(--cyan);margin-bottom:8px}
+.ide-li{font-size:12px;color:var(--dim);margin-bottom:6px;padding-left:10px;border-left:2px solid var(--mut)}
+.ide-foot{font-size:10px;color:var(--mut);margin-top:8px;font-style:italic}
+
+/* Cursor capô */
+.capo-mock{display:grid;grid-template-columns:1fr 1.2fr;gap:12px;width:100%;max-width:920px;margin-top:8px;align-items:start}
+@media(max-width:780px){.capo-mock{grid-template-columns:1fr}}
+.capo-pane{background:var(--sf0);border:1px solid var(--bd);border-radius:8px;padding:10px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--dim)}
+.capo-chat{border:1px solid rgba(63,185,80,.35);padding:8px;border-radius:6px;margin-top:6px;min-height:52px;transition:background .2s}
+.sim-at-btn{margin-top:8px;font-size:11px;padding:5px 12px;border-radius:8px;border:1px solid var(--green);background:rgba(63,185,80,.1);color:var(--green);cursor:pointer;font-family:'JetBrains Mono',monospace}
+
+/* Agent loop */
+.agent-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:960px;margin-top:8px}
+.loop-ring{width:180px;height:180px;margin:0 auto;position:relative}
+.loop-ring.paused .loop-anim{animation-play-state:paused}
+.loop-step{position:absolute;font-size:10px;font-family:'JetBrains Mono',monospace;color:var(--dim)}
+.loop-anim{animation:spinloop 8s linear infinite}
+@keyframes spinloop{to{transform:rotate(360deg)}}
+.loop-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font-size:11px;color:var(--purple);font-weight:700}
+
+/* Arsenal */
+.arsenal-hub{display:flex;flex-wrap:wrap;justify-content:center;align-items:flex-start;gap:16px;margin-top:10px;width:100%;max-width:920px}
+.hub-core{background:var(--sf0);border:2px solid var(--purple);border-radius:12px;padding:14px 20px;font-weight:700;text-align:center}
+.hub-side{display:flex;flex-direction:column;gap:10px}
+.hub-box{background:var(--sf0);border:1px solid var(--bd2);border-radius:10px;padding:10px 12px;min-width:200px;cursor:pointer}
+.hub-box.on{border-color:var(--orange)}
+.hub-box-title{font-size:13px;font-weight:700;margin-bottom:4px}
+.hub-detail{display:none;font-size:11.5px;color:var(--dim);margin-top:6px}
+.hub-box.on .hub-detail{display:block}
+
+/* Repo tree */
+.repo-layout{display:grid;grid-template-columns:200px 1fr;gap:16px;width:100%;max-width:960px;margin-top:8px;align-items:start}
+@media(max-width:720px){.repo-layout{grid-template-columns:1fr}}
+.repo-tree{font-family:'JetBrains Mono',monospace;font-size:11px;background:var(--sf0);border:1px solid var(--bd);border-radius:8px;padding:10px;line-height:1.7}
+.repo-tree .rt-item{cursor:pointer;padding:2px 4px;border-radius:4px}
+.repo-tree .rt-item.on{background:rgba(88,166,255,.15);outline:1px solid rgba(88,166,255,.35)}
+.repo-boxes{display:flex;flex-direction:column;gap:8px}
+.rb{background:var(--sf0);border:1px solid var(--bd2);border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--dim);opacity:.45;transition:opacity .2s,border-color .2s}
+.rb.on{opacity:1;border-color:var(--green)}
+
+/* Golden context */
+.golden-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:920px;margin-top:8px}
+.bad-panel{border-color:rgba(255,123,114,.4)!important}
+.good-panel{border-color:rgba(63,185,80,.4)!important}
+.ctx-meter{height:24px;border-radius:6px;margin-top:8px;background:var(--mut);overflow:hidden}
+.ctx-meter .fill{height:100%;transition:width .4s}
+.ctx-meter.bad .fill{width:100%;background:linear-gradient(90deg,var(--red),#8b0000)}
+.ctx-meter.good .fill{width:38%;background:var(--green)}
+.sw-wrap{text-align:center;margin-top:8px}
+.sw{font-family:'JetBrains Mono',monospace;font-size:11px;padding:6px 14px;border-radius:20px;border:1px solid var(--bd2);background:var(--sf1);cursor:pointer;color:var(--dim)}
+.sw.on-good{border-color:var(--green);color:var(--green)}
+.golden-ex-panel{width:100%;max-width:920px;margin-top:12px;border:1px solid var(--bd2);border-radius:10px;background:var(--sf0);overflow:hidden;max-height:0;opacity:0;transition:max-height .45s ease,opacity .35s ease,margin .35s ease}
+.golden-ex-panel.is-open{max-height:560px;opacity:1;margin-top:12px}
+.golden-ex-head{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 12px;border-bottom:1px solid var(--bd);background:var(--sf1)}
+.golden-ex-head span{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mut);text-transform:uppercase;letter-spacing:1px}
+.golden-ex-close{font-size:10px;padding:4px 10px;border-radius:6px;border:1px solid var(--bd2);background:var(--sf0);color:var(--dim);cursor:pointer;font-family:'JetBrains Mono',monospace}
+.golden-ex-close:hover{border-color:var(--red);color:var(--red)}
+.golden-ex-cols{display:grid;grid-template-columns:1fr 1fr;gap:0}
+@media(max-width:780px){.golden-ex-cols{grid-template-columns:1fr}}
+.golden-ex-side{padding:12px 14px;border-right:1px solid var(--bd);transition:box-shadow .25s,background .25s}
+.golden-ex-side:last-child{border-right:none}
+.golden-ex-side h4{font-family:'Syne',sans-serif;font-size:13px;margin-bottom:8px}
+.golden-ex-side.bad h4{color:var(--red)}
+.golden-ex-side.good h4{color:var(--green)}
+.golden-ex-pre{font-family:'JetBrains Mono',monospace;font-size:10px;line-height:1.65;color:#bbb;white-space:pre-wrap;margin:0;max-height:220px;overflow:auto}
+.golden-ex-panel.emph-bad .golden-ex-side.bad{box-shadow:inset 0 0 0 2px rgba(255,123,114,.45);background:rgba(255,123,114,.06)}
+.golden-ex-panel.emph-good .golden-ex-side.good{box-shadow:inset 0 0 0 2px rgba(63,185,80,.45);background:rgba(63,185,80,.06)}
+
+/* Modes matrix */
+.modes-3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%;max-width:1040px;margin-top:8px}
+@media(max-width:820px){.modes-3{grid-template-columns:1fr}}
+.mode-col{padding:12px;border-radius:10px;background:var(--sf0);border:2px solid var(--bd2)}
+.mode-col.ask{border-color:rgba(86,212,221,.35)}
+.mode-col.agent{border-color:rgba(63,185,80,.35)}
+.mode-col.plan{border-color:rgba(255,123,114,.35)}
+.mode-k{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mut);margin-bottom:6px}
+.quiz-box{margin-top:10px;background:var(--sf1);border:1px solid var(--bd);border-radius:8px;padding:10px 12px;font-size:12px;max-width:640px;width:100%}
+.quiz-q{margin-bottom:8px;color:var(--txt)}
+.quiz-btns{display:flex;gap:8px;flex-wrap:wrap}
+.qbtn{font-size:11px;padding:5px 10px;border-radius:6px;border:1px solid var(--bd2);background:var(--sf0);cursor:pointer;color:var(--dim)}
+.qbtn:hover{border-color:var(--blue)}
+.qfb{margin-top:8px;font-size:11.5px;color:var(--green);display:none}
+.qfb.bad{color:var(--red)}
+
+/* SDD */
+.sdd-row{display:flex;gap:10px;width:100%;max-width:960px;margin-top:8px;align-items:stretch}
+.sdd-step{flex:1;background:var(--sf0);border:2px solid var(--bd2);border-radius:10px;padding:12px;cursor:pointer;transition:border-color .2s}
+.sdd-step.on{border-color:var(--blue)}
+.sdd-n{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:800;color:var(--mut)}
+.sdd-t{font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin:6px 0}
+.sdd-d{font-size:12px;color:var(--dim)}
+.sdd-check{display:none;margin-top:8px;font-size:11px;color:var(--cyan)}
+.sdd-step.on .sdd-check{display:block}
+
+/* Memory gauge */
+.mem-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;width:100%;max-width:960px;margin-top:8px;align-items:center}
+.gauge-wrap{text-align:center}
+.gauge-svg{width:160px;height:160px}
+.mem-pulse.pulse-once{animation:pulseRed .6s ease}
+@keyframes pulseRed{0%,100%{opacity:1}50%{opacity:.45}}
+
+/* Future */
+.future-slide{text-align:center;max-width:720px}
+.future-quote{font-family:'Syne',sans-serif;font-size:clamp(1.3rem,3.5vw,2rem);font-weight:800;margin:16px 0;line-height:1.2}
+.future-p{font-size:14px;color:var(--dim);line-height:1.65}
+.future-callout{margin-top:20px;padding:12px 16px;border:1px solid var(--bd2);border-radius:10px;font-size:13px;color:var(--dim);text-align:left}
+
+.particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.pt{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--acc);opacity:0}
+.slide.on .pt{animation:ptfloat var(--d,6s) ease-in-out var(--dl,0s) infinite}
+@keyframes ptfloat{0%{opacity:0;transform:translate(0,0)}20%{opacity:.8}80%{opacity:.5}100%{opacity:0;transform:translate(var(--tx,30px),var(--ty,-60px))}}
+
+.slide.on .shead{animation:fadein .4s ease .1s both}
+.slide.on .ttl{animation:fadein .5s ease .2s both}
+.slide.on .sub{animation:fadein .5s ease .3s both}
+.slide.on .sbody,.slide.on .timeline-wrap,.slide.on .para-grid,.slide.on .lab-wrap,.slide.on .tf-flow,.slide.on .cover-visual{animation:fadein .5s ease .35s both}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.si .stag{color:var(--blue);border-color:var(--blue)}
+.sc .stag{color:var(--cyan);border-color:var(--cyan)}
+.sr .stag{color:var(--red);border-color:var(--red)}
+.st .stag{color:var(--green);border-color:var(--green)}
+.sm .stag{color:var(--purple);border-color:var(--purple)}
+.sa .stag{color:var(--yellow);border-color:var(--yellow)}
+.sl .stag{color:var(--lavender);border-color:var(--lavender)}
+.sf .stag{color:var(--orange);border-color:var(--orange)}
+.login-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:920px;margin-top:8px}
+.login-pre{font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.55;background:var(--sf0);border:1px solid var(--bd2);border-radius:10px;padding:14px 16px;max-height:min(46vh,440px);overflow:auto;text-align:left;white-space:pre-wrap;color:#d4d4d4;width:100%}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<div id="secbar"></div>
+<div id="deck"></div>
+<div id="nav">
+  <button class="nbtn" id="btn-prev">←</button>
+  <div class="dots" id="dots"></div>
+  <button class="nbtn" id="btn-next">→</button>
+</div>
+<div id="sctr">01 / 20</div>
+<div id="hint"><span class="kk">←</span><span class="kk">→</span> navegar · <span class="kk">Espaço</span> · no slide IDEs <span class="kk">1</span><span class="kk">2</span><span class="kk">3</span> · <span class="kk">F</span> tela cheia</div>
+
+<script>
+const LOGIN_EXAMPLE_PROMPT=`## Role (sistema)
+Você é um desenvolvedor front-end sênior especializado em React, TypeScript, Tailwind CSS e acessibilidade (WCAG 2.1 nível AA).
+
+## Task
+Implemente uma **tela de login** completa e responsiva: campos e-mail e senha, botão "Entrar", link "Esqueci minha senha", validação com mensagens de erro claras e estado de carregamento no envio.
+
+## Context
+<context>
+Stack obrigatória: React 18 + TypeScript + Tailwind CSS.
+O repositório já expõe componentes em \`src/components/ui/\` (Input, Button, Card) — reutilize-os se existirem.
+Rotas: página em \`/login\`; após autenticação bem-sucedida (mock), redirecionar para \`/dashboard\`.
+Não adicione bibliotecas de UI novas sem justificar em uma linha.
+</context>
+
+## Few-shot (formato de entrada/saída desejado)
+**Pedido:** "formulário de contato simples"
+**Resposta esperada:** um único arquivo \`ContactForm.tsx\` com labels visíveis, erros inline e botão desabilitado durante o envio.
+
+## Constraints + Chain of Thought
+Responda obrigatoriamente nesta ordem, usando as tags abaixo:
+
+<thinking>
+1. Lista dos arquivos que você vai criar ou alterar
+2. Regras de validação (e-mail válido; senha mínima de 8 caracteres)
+3. Como garantir acessibilidade (rótulos, foco, \`aria-invalid\`, região para mensagens de erro)
+</thinking>
+
+<answer>
+Entregue apenas o código necessário: por exemplo \`LoginPage.tsx\` e estilos Tailwind inline/classes conforme o padrão do projeto.
+</answer>`;
+
+function escTxt(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+const SECS=[
+  {name:'Abertura',      cls:'si', color:'#58a6ff', first:0, last:0},
+  {name:'Evolução',      cls:'sc', color:'#56d4dd', first:1, last:2},
+  {name:'Modelo',        cls:'sr', color:'#ff7b72', first:3, last:8},
+  {name:'Prompt',        cls:'st', color:'#3fb950', first:9, last:9},
+  {name:'IDEs',          cls:'si', color:'#58a6ff', first:10, last:10},
+  {name:'Cursor',        cls:'sm', color:'#a371f7', first:11, last:13},
+  {name:'Repositório',   cls:'st', color:'#3fb950', first:14, last:16},
+  {name:'Workflow',      cls:'sa', color:'#e3b341', first:17, last:18},
+  {name:'Encerramento',  cls:'sl', color:'#c9d1d9', first:19, last:19},
+];
+const sOf=i=>SECS.find(x=>i>=x.first&&i<=x.last)||SECS[0];
+
+const D=[
+  {cov:true},
+  {k:'timeline'},
+  {k:'paradigm'},
+  {k:'tokens'},
+  {k:'transformer'},
+  {k:'lab'},
+  {k:'contextwin'},
+  {k:'ttft'},
+  {k:'prompt'},
+  {k:'loginExample'},
+  {k:'ides'},
+  {k:'capo'},
+  {k:'agentloop'},
+  {k:'arsenal'},
+  {k:'repo'},
+  {k:'golden'},
+  {k:'modes'},
+  {k:'sdd'},
+  {k:'memory'},
+  {k:'future'},
+];
+
+function shead(i,s,tag,ref=''){
+  return `<div class="shead">
+    <span class="snum">${String(i+1).padStart(2,'0')}</span>
+    ${ref?`<span class="playbook-ref">${ref}</span>`:`<span></span>`}
+    <span class="stag">${tag}</span>
+  </div>`;
+}
+
+function makeSlide(i){
+  const d=D[i];
+  const s=sOf(i);
+  const el=document.createElement('div');
+  el.className='slide '+s.cls+(d.cov?' cover-slide':'');
+  el.dataset.slideIndex=String(i);
+  el.innerHTML=buildHTML(i,d,s);
+  return el;
+}
+
+function buildHTML(i,d,s){
+  if(d.cov) return buildCover();
+  switch(d.k){
+    case 'timeline': return buildTimeline(i,s);
+    case 'paradigm': return buildParadigm(i,s);
+    case 'tokens': return buildTokens(i,s);
+    case 'transformer': return buildTransformer(i,s);
+    case 'lab': return buildLab(i,s);
+    case 'contextwin': return buildContextWin(i,s);
+    case 'loginExample': return buildLoginExample(i,s);
+    case 'ttft': return buildTtft(i,s);
+    case 'prompt': return buildPrompt(i,s);
+    case 'ides': return buildIdes(i,s);
+    case 'capo': return buildCapo(i,s);
+    case 'agentloop': return buildAgentLoop(i,s);
+    case 'arsenal': return buildArsenal(i,s);
+    case 'repo': return buildRepo(i,s);
+    case 'golden': return buildGolden(i,s);
+    case 'modes': return buildModes(i,s);
+    case 'sdd': return buildSdd(i,s);
+    case 'memory': return buildMemory(i,s);
+    case 'future': return buildFuture(i,s);
+    default: return `${shead(i,s,'?')}<p class="ttl">?</p>`;
+  }
+}
+
+function buildCover(){
+  const cells=Array.from({length:18},(_,i)=>{
+    const lines=['c1','c2','c3','c4','','','c1 c3','c2'];
+    const ls=Array.from({length:Math.floor(Math.random()*4)+2},()=>`<div class="ide-line ${lines[Math.floor(Math.random()*lines.length)]}"></div>`).join('');
+    return `<div class="ide-cell" style="--di:${i}">${ls}</div>`;
+  }).join('');
+  return `
+    <div class="particles">${Array.from({length:8},(_,i)=>`<div class="pt" style="left:${10+i*12}%;top:${20+Math.sin(i)*30}%;--tx:${-20+i*5}px;--ty:-${40+i*8}px;--d:${4+i*.5}s;--dl:${i*.4}s"></div>`).join('')}</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;opacity:.75">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue);border:1px solid rgba(88,166,255,.4);padding:3px 10px;border-radius:20px;letter-spacing:2px">Introdução</span>
+    </div>
+    <h1 class="ttl">Introdução à Engenharia de IA</h1>
+    <p class="sub">Contexto, agentes e repositório como sistema nervoso do trabalho com IA</p>
+    <div class="cover-visual"><div class="ide-grid">${cells}</div></div>
+    <div class="cover-badges">
+      <span class="era-badge" style="color:var(--cyan);border-color:var(--cyan)">Tokens</span>
+      <span class="era-badge" style="color:var(--red);border-color:var(--red)">Transformer</span>
+      <span class="era-badge" style="color:var(--green);border-color:var(--green)">Janela de contexto</span>
+      <span class="era-badge" style="color:var(--yellow);border-color:var(--yellow)">TTFT / ITL</span>
+      <span class="era-badge" style="color:var(--blue);border-color:var(--blue)">Prompt</span>
+      <span class="era-badge" style="color:var(--purple);border-color:var(--purple)">IDEs & Agentes</span>
+      <span class="era-badge" style="color:var(--orange);border-color:var(--orange)">Cursor</span>
+      <span class="era-badge" style="color:var(--lavender);border-color:var(--lavender)">SDD</span>
+    </div>`;
+}
+
+function buildTimeline(i,s){
+  const nodes=[
+    {y:'2001',l:'IntelliSense',t:'Nascimento do autocomplete baseado em sintaxe estruturada e padrões locais.'},
+    {y:'2020',l:'Modelos focados',t:'Deep learning aplicado a código; foco estrito no que foi digitado antes do cursor.'},
+    {y:'2023',l:'Fill-in-the-middle',t:'A IA analisa código anterior e posterior ao cursor para inserções.'},
+    {y:'2026',l:'Orquestração autônoma',t:'Janelas de até ~1M tokens, multi-agente e análise global de repositório.'},
+  ];
+  const track=nodes.map((n,idx)=>`<div class="timeline-node${idx===0?' on':''}" data-i="${idx}" tabindex="0">
+    <div class="timeline-dot"></div>
+    <div class="timeline-year">${n.y}</div>
+    <div class="timeline-label">${n.l}</div>
+  </div>`).join('');
+  return `${shead(i,s,'Evolução','PPTX 1/17')}
+    <h2 class="ttl">A evolução da assistência ao código</h2>
+    <p class="sub">Da sintaxe local à orquestração autônoma</p>
+    <div class="timeline-wrap">
+      <div class="timeline-track">${track}</div>
+      <div class="timeline-panel" id="tl-panel"><p>${nodes[0].t}</p></div>
+      <div class="tl-play-row"><button type="button" class="tl-play" id="tl-play">Reproduzir linha do tempo</button></div>
+    </div>`;
+}
+
+function buildParadigm(i,s){
+  return `${shead(i,s,'Paradigma','PPTX 2/17')}
+    <h2 class="ttl">Do autocomplete ao agente</h2>
+    <p class="sub">Passado recente · Presente · Novo padrão</p>
+    <div class="para-grid" id="para-grid">
+      <div class="para-col on" data-col="0">
+        <div class="para-hdr">Passado recente</div>
+        <div class="para-sub">Autocomplete (ex.: GitHub Copilot)</div>
+        <p style="font-size:12.5px;color:var(--dim)">IA <strong>passiva</strong>, prevendo o próximo trecho de código.</p>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--sf1);padding:8px;border-radius:6px;border:1px solid var(--bd);color:#aaa">
+          <span style="color:var(--yellow)">function</span> calculate_sum(a,b) {<br/>
+          &nbsp;&nbsp;<span style="opacity:.5">// Sugestão: return a + b;</span><br/>}
+        </div>
+      </div>
+      <div class="para-col dim" data-col="1">
+        <div class="para-hdr">Presente</div>
+        <div class="para-sub">Chat (ex.: ChatGPT)</div>
+        <p style="font-size:12.5px;color:var(--dim)">IA <strong>reativa</strong>: copiar e colar o código gerado.</p>
+        <div style="font-size:10px;padding:8px;background:var(--sf1);border-radius:6px;border:1px solid var(--bd)">
+          <span style="color:var(--red)">> Escreva uma função Python para inverter uma string.</span><br/>
+          <span style="color:var(--green)">def reverse_string(s): return s[::-1]</span>
+        </div>
+      </div>
+      <div class="para-col dim" data-col="2">
+        <div class="para-hdr">O novo padrão</div>
+        <div class="para-sub">Agentes de código (ex.: Cursor, Claude Code)</div>
+        <p style="font-size:12.5px;color:var(--dim)">IA <strong>ativa</strong>: leitura/escrita autônoma e execução de comandos.</p>
+        <div style="font-size:10px;text-align:center;color:var(--purple);font-family:'JetBrains Mono',monospace;line-height:1.6">
+          agent.read(file="main.py")<br/>agent.write(code="…")<br/>agent.run(command="pytest")
+        </div>
+      </div>
+    </div>
+    <div class="para-btns">
+      <button type="button" class="para-btn on" data-p="0">1</button>
+      <button type="button" class="para-btn" data-p="1">2</button>
+      <button type="button" class="para-btn" data-p="2">3</button>
+    </div>
+    <div class="callout-box"><strong>Contexto:</strong> o Google relata que mais de <strong>30%</strong> do código novo já é gerado por IA. Isso significa que o trabalho do programador está evoluindo de "alguém que escreve código linha por linha" para "alguém que projeta o sistema e define o comportamento esperado".</div>`;
+}
+
+function buildTokens(i,s){
+  return `${shead(i,s,'Fundamentos','PPTX 3/17')}
+    <h2 class="ttl">A unidade atômica: tokens não são palavras</h2>
+    <p class="sub">LLMs operam sobre números — não sobre “texto mágico”</p>
+    <div class="sbody wide">
+      <div class="stxt">
+        <div class="bullets">
+          <div class="bullet"><strong>Mecânica</strong><span>Modelos não processam texto diretamente; convertem tudo em vetores no <strong>embedding</strong>.</span></div>
+          <div class="bullet"><strong>Razões</strong><span>~1 token ≈ <strong>0,75</strong> palavras (EN) · ~1 token ≈ <strong>0,5</strong> palavras (PT).</span></div>
+        </div>
+      </div>
+      <div>
+        <p style="font-size:12px;color:var(--mut);margin-bottom:6px">“O céu está incrivelmente azul hoje.”</p>
+        <div class="token-demo" id="tok-demo">
+          <span class="tok a">O</span><span class="tok b">céu</span><span class="tok c">está</span><span class="tok a">incri</span><span class="tok b">velmente</span><span class="tok c">azul</span><span class="tok a">hoje</span><span class="tok b">.</span>
+        </div>
+      </div>
+    </div>
+    <div class="quote" style="max-width:900px;margin-top:10px"><strong>O idioma importa:</strong> em português, acentos e palavras longas consomem tokens mais rápido — a janela de contexto esgota antes.</div>`;
+}
+
+function buildTransformer(i,s){
+  const steps=[
+    {n:'01',t:'Tokenização',s:'O texto humano vira peças numéricas processáveis.',m:'Fragmentação em IDs; primeiro passo antes do embedding.'},
+    {n:'02',t:'Embedding e posição',s:'Vetores capturam significado e a ordem das palavras.',m:'Cada token ganha posição no espaço de alta dimensão.'},
+    {n:'03',t:'Self-attention',s:'O modelo mede relevância entre todos os tokens.',m:'É onde nasce o “contexto” entre palavras distantes.'},
+    {n:'04',t:'Geração (softmax)',s:'Previsão estatística do próximo token.',m:'Próxima palavra mais provável — não “verdade” garantida.'},
+  ];
+  const cards=steps.map(x=>`<div class="tf-card" data-tf="1">
+    <div class="tf-num">${x.n}</div>
+    <div class="tf-title">${x.t}</div>
+    <div class="tf-sum">${x.s}</div>
+    <div class="tf-more"><p style="font-size:11.5px;color:var(--dim)">${x.m}</p></div>
+  </div>`).join('');
+  return `${shead(i,s,'Modelo','PPTX 4/17')}
+    <h2 class="ttl">A anatomia de um Transformer</h2>
+    <p class="sub">Quatro estágios em sequência — clique para expandir</p>
+    <div class="tf-flow" id="tf-flow">${cards}</div>`;
+}
+
+function buildLab(i,s){
+  const url='https://poloclub.github.io/transformer-explainer/';
+  return `${shead(i,s,'Laboratório','Explorador interativo')}
+    <h2 class="ttl">Transformer Explainer (GPT-2 small)</h2>
+    <p class="sub">Mesmos blocos conceituais: embedding, atenção, softmax do próximo token — experimente temperatura, top-k e mapas de atenção.</p>
+    <div class="lab-wrap">
+      <div class="lab-actions">
+        <a class="lab-btn" href="${url}" target="_blank" rel="noopener noreferrer">Abrir em nova aba</a>
+      </div>
+      <div class="lab-frame-wrap">
+        <iframe class="lab-frame" title="Transformer Explainer" loading="lazy" sandbox="allow-scripts allow-same-origin allow-popups allow-forms" src="${url}"></iframe>
+      </div>
+      <p class="lab-note">Se o iframe não carregar (rede, <code>file://</code> ou política do navegador), use “Abrir em nova aba” ou sirva este HTML por <code>http://localhost</code>.</p>
+    </div>`;
+}
+
+function buildContextWin(i,s){
+  return `${shead(i,s,'Modelo','PPTX 5/17')}
+    <h2 class="ttl">Janela de contexto e “Lost in the Middle”</h2>
+    <p class="sub">Capacidade total (ex.: <strong>200k tokens</strong> no Cursor) — smart zone vs. dumb zone</p>
+    <div style="max-width:640px;width:100%;margin:8px auto 0">
+      <div class="ctx-slide-bar" id="ctx-gradient"><div class="ctx-slide-knob" id="ctx-knob" style="left:15%"></div></div>
+      <input type="range" class="ctx-slider" id="ctx-range" min="0" max="100" value="15"/>
+      <p class="ctx-msg" id="ctx-msg">Smart zone — atenção alta; respostas mais precisas.</p>
+    </div>
+    <div class="bullets" style="max-width:900px;margin-top:12px">
+      <div class="bullet"><strong>Smart zone (~início)</strong><span>Modelo com “atenção” disponível para instruções e arquitetura.</span></div>
+      <div class="bullet" style="border-left-color:var(--red)"><strong>Dumb zone</strong><span>Orçamento de atenção esgotado: ignora instruções, mistura conceitos, alucina.</span></div>
+      <div class="bullet" style="border-left-color:var(--cyan)"><strong>Lição</strong><span>Self-attention não escala magicamente: <strong>mais contexto ≠ melhor resultado</strong>.</span></div>
+    </div>`;
+}
+
+function buildLoginExample(i,s){
+  return `${shead(i,s,'Exemplo','Prompt completo')}
+    <h2 class="ttl">Exemplo: pedir uma tela de login ao modelo</h2>
+    <p class="sub">Mesma anatomia do playbook — Role → Task → Context → Few-shot → CoT (<code>&lt;thinking&gt;</code> / <code>&lt;answer&gt;</code>)</p>
+    <div class="login-wrap">
+      <button type="button" class="lab-btn" id="login-copy-btn">Copiar prompt</button>
+      <pre id="login-prompt-pre" class="login-pre">${escTxt(LOGIN_EXAMPLE_PROMPT)}</pre>
+    </div>
+    <p class="lab-note" style="margin-top:6px">Use na IDE ou no chat depois de dominar contexto e limites da janela.</p>`;
+}
+
+function buildTtft(i,s){
+  return `${shead(i,s,'Modelo','PPTX 6/17')}
+    <h2 class="ttl">A física da geração: TTFT vs. ITL</h2>
+    <p class="sub">Prefill paralelo vs. geração autorregressiva</p>
+    <div class="ttft-toggle">
+      <button type="button" class="ttft-tbtn on" data-sc="a">Cenário A: prompt gigante</button>
+      <button type="button" class="ttft-tbtn" data-sc="b">Cenário B: resposta longa</button>
+    </div>
+    <div class="ttft-grid">
+      <div class="ttft-col hl" id="col-ttft">
+        <div style="font-weight:700;font-size:13px;margin-bottom:6px;color:var(--cyan)">Time to First Token (TTFT)</div>
+        <p style="font-size:12.5px;color:var(--dim)">Leitura do input em <strong>paralelo</strong> (prefill). Prompts muito grandes aumentam pouco a latência até o primeiro token.</p>
+        <svg class="mini-svg" viewBox="0 0 200 100"><path d="M20 70 L180 68" stroke="var(--blue)" stroke-width="3" fill="none"/><text x="100" y="18" text-anchor="middle" fill="var(--mut)" font-size="10" font-family="JetBrains Mono">Latência ~ plana · input</text></svg>
+      </div>
+      <div class="ttft-col" id="col-itl">
+        <div style="font-weight:700;font-size:13px;margin-bottom:6px;color:var(--red)">Inter-Token Latency (ITL)</div>
+        <p style="font-size:12.5px;color:var(--dim)">Saída é <strong>sequencial</strong> e bloqueante; saídas longas aumentam tempo e custo.</p>
+        <svg class="mini-svg" viewBox="0 0 200 100"><path d="M20 75 Q60 70 100 50 T180 15" stroke="var(--red)" stroke-width="3" fill="none"/><text x="100" y="18" text-anchor="middle" fill="var(--mut)" font-size="10" font-family="JetBrains Mono">Latência sobe · output</text></svg>
+      </div>
+    </div>
+    <div class="quote" style="max-width:880px;margin-top:12px"><strong>Regra do desenvolvedor:</strong> instruções grandes tendem a ser baratas/rápidas no prefill — <strong>limite o tamanho da resposta</strong> quando custo/latência importam.</div>`;
+}
+
+function buildPrompt(i,s){
+  return `${shead(i,s,'Prompt','PPTX 7/17')}
+    <h2 class="ttl">A anatomia de um prompt perfeito</h2>
+    <p class="sub">Clique em cada bloco para ver um exemplo breve</p>
+    <div class="pm-stack" id="pm-stack">
+      <div class="pm-row">
+        <div class="pm-block on" data-pm="0"><div class="pm-name" style="color:var(--blue)">Role (sistema)</div><div class="pm-desc">Persona — reduz o espaço de respostas possíveis.</div><div class="pm-ex">“Você é um engenheiro de software sênior em TypeScript.”</div></div>
+        <div class="pm-block" data-pm="1"><div class="pm-name" style="color:var(--red)">Task</div><div class="pm-desc">Instruções afirmativas: diga o que fazer.</div><div class="pm-ex">“Implemente a função X seguindo o padrão do projeto.”</div></div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-block" data-pm="2"><div class="pm-name" style="color:var(--green)">Context / facts</div><div class="pm-desc">Dados isolados; prefira tags <code>&lt;context&gt;</code>.</div><div class="pm-ex">&lt;context&gt;…trecho do schema…&lt;/context&gt;</div></div>
+        <div class="pm-block" data-pm="3"><div class="pm-name" style="color:var(--yellow)">Few-shot</div><div class="pm-desc">1–2 exemplos entrada/saída — alto ganho de qualidade.</div><div class="pm-ex">Entrada: … / Saída: … (mesmo formato da tarefa)</div></div>
+      </div>
+      <div class="pm-row">
+        <div class="pm-block" data-pm="4" style="flex:1"><div class="pm-name">Constraints + CoT</div><div class="pm-desc">Obrigar raciocínio antes da resposta final (tags XML).</div><div class="pm-ex">Primeiro &lt;thinking&gt;, depois &lt;answer&gt;.</div></div>
+      </div>
+    </div>
+    <div class="pm-code-snippet">&lt;thinking&gt;
+Raciocínio passo a passo aqui.
+&lt;/thinking&gt;
+&lt;answer&gt;
+Resposta final aqui.
+&lt;/answer&gt;</div>`;
+}
+
+function buildIdes(i,s){
+  return `${shead(i,s,'Panorama','PPTX 8/17')}
+    <h2 class="ttl">O campo de batalha das IDEs de IA (2026)</h2>
+    <p class="sub">Métricas citadas no material — não são benchmarks auditados aqui</p>
+    <div class="ide-battle" id="ide-battle">
+      <div class="ide-card expand" data-ide="0">
+        <div class="ide-card-h">Cursor</div>
+        <div class="ide-card-sub">O poder do contexto</div>
+        <div class="ide-li"><strong>Diferencial:</strong> Composer nativo; refatoração multi-arquivo (&gt;10).</div>
+        <div class="ide-li"><strong>Contexto:</strong> 200k tokens + indexação semântica do repositório.</div>
+        <div class="ide-li"><strong>Métrica (deck):</strong> ~72% accept rate.</div>
+        <div class="ide-li"><strong>Foco:</strong> controle profundo e codebase indexing.</div>
+      </div>
+      <div class="ide-card" data-ide="1">
+        <div class="ide-card-h">Windsurf</div>
+        <div class="ide-card-sub">Velocidade e segurança enterprise</div>
+        <div class="ide-li"><strong>Diferencial:</strong> autocomplete &lt;150 ms (citado no deck).</div>
+        <div class="ide-li"><strong>Privacidade:</strong> BYOK, VPC / on-premises.</div>
+        <div class="ide-li"><strong>Foco:</strong> dados sensíveis + baixa latência.</div>
+      </div>
+      <div class="ide-card" data-ide="2">
+        <div class="ide-card-h">GitHub Copilot</div>
+        <div class="ide-card-sub">Automação e ecossistema</div>
+        <div class="ide-li"><strong>Diferencial:</strong> pipeline Issue → PR (Copilot Workspace).</div>
+        <div class="ide-li"><strong>Integração:</strong> VS Code, CLI, mobile, web.</div>
+        <div class="ide-li"><strong>Foco:</strong> adoção em massa no ecossistema GitHub.</div>
+      </div>
+    </div>
+    <p class="ide-foot">Atalhos do professor: teclas 1, 2, 3 neste slide.</p>`;
+}
+
+function buildCapo(i,s){
+  return `${shead(i,s,'Cursor','PPTX 9/17')}
+    <h2 class="ttl">Cursor sob o capô: gerenciamento local</h2>
+    <p class="sub">Domar a janela de contexto sem estourar tokens</p>
+    <div class="capo-mock">
+      <div class="capo-pane"><strong>Explorer</strong><br/>📄 .cursorrules<br/>📁 docs/<br/>…</div>
+      <div class="capo-pane">
+        <strong>Chat</strong>
+        <div class="capo-chat" id="capo-chat">@docs/arquitetura.md Explique o fluxo de auth</div>
+        <button type="button" class="sim-at-btn" id="capo-sim">Simular @</button>
+        <p style="font-size:11px;color:var(--dim);margin-top:8px"><strong>Progressive disclosure:</strong> regras modulares (.mdc), injetadas só quando necessário.<br/><strong>@ dinâmico:</strong> só o trecho necessário entra na “smart zone”.</p>
+      </div>
+    </div>`;
+}
+
+function buildAgentLoop(i,s){
+  return `${shead(i,s,'Agentes','PPTX 10/17')}
+    <h2 class="ttl">LLMs vs. agentes</h2>
+    <p class="sub">Stateless vs. loop stateful com ferramentas</p>
+    <div class="agent-split">
+      <div style="background:var(--sf0);border:1px solid var(--bd);border-radius:10px;padding:14px">
+        <div style="font-weight:700;margin-bottom:8px;color:var(--cyan)">Abordagem LLM (stateless)</div>
+        <p style="font-size:12.5px;color:var(--dim)">Input (texto) → LLM → Output (texto). Sem arquivo no prompt → falha ou alucinação.</p>
+        <div class="llm-flow-icons" style="text-align:center;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:clamp(1.75rem,5vw,2.75rem);line-height:1.2;color:var(--mut);letter-spacing:.08em">📄 → 🧠 → 📝</div>
+      </div>
+      <div style="background:var(--sf0);border:1px solid var(--bd);border-radius:10px;padding:14px;text-align:center">
+        <div style="font-weight:700;margin-bottom:8px;color:var(--purple)">Abordagem agente (stateful)</div>
+        <p style="font-size:12.5px;color:var(--dim);text-align:left">LLM → ferramenta → ler arquivo → observar → ação → até resolver.</p>
+        <div class="loop-ring" id="loop-ring">
+          <svg class="loop-anim" width="180" height="180" viewBox="0 0 180 180" style="position:absolute;left:0;top:0">
+            <circle cx="90" cy="90" r="78" fill="none" stroke="rgba(163,113,247,.25)" stroke-width="2" stroke-dasharray="8 6"/>
+          </svg>
+          <span class="loop-step" style="left:50%;top:4px;transform:translateX(-50%)">LLM</span>
+          <span class="loop-step" style="right:8px;top:40%">tool</span>
+          <span class="loop-step" style="left:8px;top:45%">ler</span>
+          <span class="loop-step" style="left:20%;bottom:12%">observar</span>
+          <span class="loop-step" style="right:18%;bottom:15%">ação</span>
+          <div class="loop-center">loop</div>
+        </div>
+        <button type="button" class="sim-at-btn" id="loop-pause" style="margin-top:8px">Pausar / continuar animação</button>
+      </div>
+    </div>`;
+}
+
+function buildArsenal(i,s){
+  return `${shead(i,s,'Agentes','PPTX 11/17')}
+    <h2 class="ttl">O arsenal do agente: Tools, Skills e MCP</h2>
+    <p class="sub">Clique em cada peça — metáforas do material</p>
+    <div class="arsenal-hub">
+      <div class="hub-side">
+        <div class="hub-box on" data-hub="t"><div class="hub-box-title">Tools (as mãos)</div><div style="font-size:11.5px;color:var(--dim)">Funções que a IA decide chamar.</div>
+          <div class="hub-detail"><code>read_file</code>, <code>grep_search</code>, <code>bash_command</code>, …</div></div>
+      </div>
+      <div class="hub-core">Cérebro<br/>(LLM)</div>
+      <div class="hub-side">
+        <div class="hub-box" data-hub="s"><div class="hub-box-title">Skills (memória muscular)</div><div style="font-size:11.5px;color:var(--dim)">Markdown local com procedimentos repetíveis.</div>
+          <div class="hub-detail">Instruções estruturadas para consistência em tarefas frequentes.</div></div>
+        <div class="hub-box" data-hub="m"><div class="hub-box-title">MCP (porta USB)</div><div style="font-size:11.5px;color:var(--dim)"><strong>Model Context Protocol</strong> — DB, APIs, sistemas locais com segurança.</div>
+          <div class="hub-detail">Padrão aberto para conectar a IA a dados e ferramentas externas.</div></div>
+      </div>
+    </div>`;
+}
+
+function buildRepo(i,s){
+  return `${shead(i,s,'Repositório','PPTX 12/17')}
+    <h2 class="ttl">Arquitetando o repositório para IA</h2>
+    <p class="sub">Clique em um item da árvore</p>
+    <div class="repo-layout">
+      <div class="repo-tree" id="repo-tree">
+        <div class="rt-item on" data-r="rules">.cursorrules</div>
+        <div class="rt-item" data-r="mem">docs/memory.md</div>
+        <div class="rt-item" data-r="sk">docs/skills/…</div>
+        <div style="opacity:.7">docs/ADRs/</div><div style="opacity:.7">src/</div><div style="opacity:.7">tests/</div>
+      </div>
+      <div class="repo-boxes">
+        <div class="rb on" id="rb-rules"><strong>Regras globais</strong> — injetado nos prompts de agente; enxuto; stack e restrições absolutas.</div>
+        <div class="rb" id="rb-mem"><strong>Fonte da verdade</strong> — sob demanda via <code>@memory.md</code>; diagramas, schema, decisões.</div>
+        <div class="rb" id="rb-sk"><strong>Procedimentos</strong> — <code>docs/skills/</code> para tarefas específicas (ex.: <code>cria_rfc.md</code>).</div>
+      </div>
+    </div>`;
+}
+
+function buildGolden(i,s){
+  return `${shead(i,s,'Contexto','PPTX 13/17')}
+    <h2 class="ttl">A regra mais importante do contexto no Cursor</h2>
+    <p class="sub">Mais tokens ≠ mais verdade</p>
+    <div class="golden-split">
+      <div class="para-col bad-panel" style="padding:12px">
+        <div style="font-weight:700;color:var(--red);margin-bottom:8px">Cegueira por sobrecarga</div>
+        <p style="font-size:12px;color:var(--dim)">@Codebase, @backend inteiros…</p>
+        <div class="ctx-meter bad"><div class="fill"></div></div>
+        <div style="font-size:11px;color:var(--red);margin-top:6px">MAXED OUT</div>
+      </div>
+      <div class="para-col good-panel" style="padding:12px">
+        <div style="font-weight:700;color:var(--green);margin-bottom:8px">Injeção cirúrgica</div>
+        <p style="font-size:12px;color:var(--dim)">@header.tsx @useAuth.ts @rules.md …</p>
+        <div class="ctx-meter good"><div class="fill"></div></div>
+        <div style="font-size:11px;color:var(--green);margin-top:6px">Otimizado</div>
+      </div>
+    </div>
+    <div class="sw-wrap">
+      <button type="button" class="sw" id="golden-sw">Alternar: modo ruim / modo bom</button>
+    </div>
+    <div id="golden-ex-panel" class="golden-ex-panel" aria-hidden="true">
+      <div class="golden-ex-head">
+        <span>Exemplos no chat</span>
+        <button type="button" class="golden-ex-close" id="golden-ex-close">Fechar</button>
+      </div>
+      <div class="golden-ex-cols">
+        <div class="golden-ex-side bad">
+          <h4>Exemplo ruim (sobrecarga)</h4>
+          <pre class="golden-ex-pre">&gt; Corrija o login e o auth em todo o app
+
+Anexos:
+  @Codebase
+  @backend/
+  @node_modules/…
+
+Problema: contexto enorme e genérico.
+O modelo “varre” demais e dilui a atenção
+nas partes que importam.</pre>
+        </div>
+        <div class="golden-ex-side good">
+          <h4>Exemplo bom (injeção cirúrgica)</h4>
+          <pre class="golden-ex-pre">&gt; Ajuste só o fluxo de login conforme nosso padrão
+
+Anexos:
+  @src/components/LoginForm.tsx
+  @src/hooks/useAuth.ts
+  @docs/auth-flow.md
+
+Só o necessário: o agente lê trechos
+relevantes e mantém a resposta na smart zone.</pre>
+        </div>
+      </div>
+    </div>
+    <div class="quote" style="max-width:880px;margin-top:10px">Curadoria de contexto é a principal habilidade do desenvolvedor moderno.</div>`;
+}
+
+function buildModes(i,s){
+  return `${shead(i,s,'Modos','PPTX 14/17')}
+    <h2 class="ttl">Matriz de decisão: modos do Cursor</h2>
+    <p class="sub">Qual é a sua necessidade? · macOS: Cmd · Linux/Win: <strong>Ctrl</strong></p>
+    <div class="modes-3">
+      <div class="mode-col ask"><div class="mode-k">Ask · Cmd+L / Ctrl+L</div><div style="font-size:12.5px;color:var(--dim)"><strong>Necessidade:</strong> explicar código, bugs, aprender.<br/><strong>Comportamento:</strong> somente leitura; rápido e exploratório.</div></div>
+      <div class="mode-col agent"><div class="mode-k">Agent · Cmd+I / Ctrl+I</div><div style="font-size:12.5px;color:var(--dim)"><strong>Necessidade:</strong> criar/editar/refatorar vários arquivos.<br/><strong>Comportamento:</strong> read/write; diffs e aprovação.</div></div>
+      <div class="mode-col plan"><div class="mode-k">Plan</div><div style="font-size:12.5px;color:var(--dim)"><strong>Necessidade:</strong> arquiteturas complexas e features grandes.<br/><strong>Comportamento:</strong> etapas lógicas; alto custo em tokens; janela isolada.</div></div>
+    </div>
+    <div class="quiz-box">
+      <div class="quiz-q">Quiz rápido: você precisa refatorar cinco arquivos relacionados. Qual modo?</div>
+      <div class="quiz-btns">
+        <button type="button" class="qbtn" data-ok="0">Ask</button>
+        <button type="button" class="qbtn" data-ok="1">Agent</button>
+        <button type="button" class="qbtn" data-ok="0">Plan</button>
+      </div>
+      <div class="qfb" id="qfb-ok">Correto: <strong>Agent</strong> — escrita em múltiplos arquivos.</div>
+      <div class="qfb bad" id="qfb-no">Use o modo <strong>Agent</strong> para escrita em múltiplos arquivos.</div>
+    </div>`;
+}
+
+function buildSdd(i,s){
+  return `${shead(i,s,'Workflow','PPTX 15/17')}
+    <h2 class="ttl">Spec-Driven Development (SDD)</h2>
+    <p class="sub">Discovery → Specification → Execution — clique em cada etapa</p>
+    <div class="sdd-row" id="sdd-row">
+      <div class="sdd-step on" data-s="1"><span class="sdd-n">1</span><div class="sdd-t">Discovery</div><div class="sdd-d">Modo <strong>Ask</strong>: mapear dependências e limites da feature.</div>
+        <div class="sdd-check">☑ Escopo entendido<br/>☑ Riscos percebidos</div></div>
+      <div class="sdd-step" data-s="2"><span class="sdd-n">2</span><div class="sdd-t">Specification</div><div class="sdd-d">Gerar <code>plan.md</code> com arquitetura, arquivos e ordem.</div>
+        <div class="sdd-check">☑ Plano em Markdown<br/>☑ Passos ordenados</div></div>
+      <div class="sdd-step" data-s="3"><span class="sdd-n">3</span><div class="sdd-t">Execution</div><div class="sdd-d"><strong>Novo chat</strong>, anexar <code>@plan.md</code>, modo <strong>Agent</strong>.</div>
+        <div class="sdd-check">☑ Contexto limpo<br/>☑ Execução passo a passo</div></div>
+    </div>`;
+}
+
+function buildMemory(i,s){
+  return `${shead(i,s,'Workflow','PPTX 16/17')}
+    <h2 class="ttl">Gerenciamento de memória (evitando alucinações)</h2>
+    <p class="sub">Compactação de contexto e sessões longas</p>
+    <div class="mem-grid">
+      <div class="gauge-wrap">
+        <svg class="gauge-svg" viewBox="0 0 160 160">
+          <path d="M20 140 A 70 70 0 1 1 140 140" fill="none" stroke="var(--mut)" stroke-width="12"/>
+          <path id="gauge-arc" d="M20 140 A 70 70 0 0 1 130 50" fill="none" stroke="var(--red)" stroke-width="12" opacity=".85"/>
+          <text x="80" y="115" text-anchor="middle" fill="var(--dim)" font-size="11" font-family="JetBrains Mono">Dumb zone</text>
+        </svg>
+        <div style="font-family:'JetBrains Mono',monospace;font-size:11px;margin-top:6px">Cmd+N / Ctrl+N · novo chat</div>
+      </div>
+      <div class="stxt">
+        <div class="bullet"><strong>Problema</strong><span>Compactação para não estourar o limite — detalhes da arquitetura se perdem.</span></div>
+        <div class="bullet" style="border-left-color:var(--orange)"><strong>Sintomas</strong><span id="mem-sym">Erros triviais; esquece <code>.cursorrules</code>; loops com código quebrado.</span></div>
+        <div class="bullet" style="border-left-color:var(--green)"><strong>Solução</strong><span>Atualizar <code>memory.md</code>; novo chat; carregar só o estado atual.</span></div>
+        <button type="button" class="sim-at-btn" id="mem-sim">Simular compactação</button>
+      </div>
+    </div>`;
+}
+
+function buildFuture(i,s){
+  return `${shead(i,s,'Encerramento','PPTX 17/17')}
+    <div class="future-slide">
+      <h2 class="ttl">O desenvolvedor do futuro</h2>
+      <p class="future-quote">O código é gerado.<br/>O contexto é arquitetado.</p>
+      <p class="future-p">O valor do engenheiro não está mais em decorar sintaxe. O trabalho novo é orquestrar contextos limpos, projetar skills determinísticas para modelos probabilísticos e governar os loops de agentes autônomos.</p>
+      <div class="future-callout">Abandone a janela única de chat. Trate sua base de código como um <strong>sistema nervoso de contexto contínuo</strong>.</div>
+    </div>`;
+}
+
+/* ─── ENGINE ─────────────────────────────────────────────────── */
+const deck=document.getElementById('deck');
+const prog=document.getElementById('prog');
+const secbar=document.getElementById('secbar');
+const btnP=document.getElementById('btn-prev');
+const btnN=document.getElementById('btn-next');
+const sctrEl=document.getElementById('sctr');
+const dotsEl=document.getElementById('dots');
+
+const slides=D.map((_,i)=>makeSlide(i));
+slides.forEach(sl=>deck.appendChild(sl));
+let cur=0;
+
+dotsEl.innerHTML=SECS.map((s,i)=>`<div class="dot" data-s="${i}" title="${s.name}"></div>`).join('');
+const dotEls=[...dotsEl.querySelectorAll('.dot')];
+dotEls.forEach((d,i)=>d.addEventListener('click',()=>goTo(SECS[i].first)));
+
+function goTo(n){
+  if(n<0||n>=D.length)return;
+  slides[cur].classList.remove('on');
+  cur=n;
+  slides[cur].classList.add('on');
+  const s=sOf(cur);
+  prog.style.width=D.length>1?((cur/(D.length-1))*100).toFixed(1)+'%':'100%';
+  prog.style.background=s.color;
+  secbar.style.background=s.color;
+  document.documentElement.style.setProperty('--acc',s.color);
+  sctrEl.textContent=String(cur+1).padStart(2,'0')+' / '+D.length;
+  btnP.disabled=cur===0;
+  btnN.disabled=cur===D.length-1;
+  const si=SECS.findIndex(sec=>cur>=sec.first&&cur<=sec.last);
+  dotEls.forEach((d,i)=>d.classList.toggle('on',i===si));
+  bindSlideInteractions(cur);
+}
+
+function bindSlideInteractions(idx){
+  const slideEl=slides[idx];
+  if(slideEl.dataset.ibound)return;
+  slideEl.dataset.ibound='1';
+
+  if(idx===1){
+    const panel=document.getElementById('tl-panel');
+    const nodes=[...document.querySelectorAll('.timeline-node')];
+    const texts=[
+      'Nascimento do autocomplete baseado em sintaxe estruturada e padrões locais.',
+      'Deep learning aplicado a código; foco estrito no que foi digitado antes do cursor.',
+      'A IA analisa código anterior e posterior ao cursor para inserções.',
+      'Janelas de até ~1M tokens, multi-agente e análise global de repositório.',
+    ];
+    nodes.forEach((node,i)=>{
+      node.addEventListener('click',()=>{
+        nodes.forEach(n=>n.classList.toggle('on',n===node));
+        if(panel) panel.innerHTML='<p>'+texts[i]+'</p>';
+      });
+    });
+    const play=document.getElementById('tl-play');
+    if(play){
+      play.onclick=()=>{
+        let k=0;
+        const id=setInterval(()=>{
+          if(k>=nodes.length){clearInterval(id);return;}
+          nodes[k].click();
+          k++;
+        },900);
+      };
+    }
+  }
+
+  if(idx===2){
+    const cols=[...document.querySelectorAll('#para-grid .para-col')];
+    const btns=[...document.querySelectorAll('.para-btn')];
+    btns.forEach(b=>{
+      b.addEventListener('click',()=>{
+        const j=+b.dataset.p;
+        btns.forEach(x=>x.classList.toggle('on',x===b));
+        cols.forEach((c,k)=>c.classList.toggle('dim',k!==j));
+        cols.forEach((c,k)=>c.classList.toggle('on',k===j));
+      });
+    });
+  }
+
+  if(idx===3){
+    const demo=document.getElementById('tok-demo');
+    const toggle=document.getElementById('tok-toggle');
+    const range=document.getElementById('tok-range');
+    const applyOpacity=()=>{
+      const op=(range&&+range.value)||70;
+      if(demo) demo.style.opacity=String(0.35+op/200);
+    };
+    if(range){range.oninput=applyOpacity; applyOpacity();}
+    if(toggle&&demo){
+      toggle.onclick=()=>{
+        const on=!toggle.classList.contains('on');
+        toggle.classList.toggle('on',on);
+        [...demo.querySelectorAll('.tok')].forEach(t=>{t.style.outline=on?'1px solid rgba(255,255,255,.12)':'none';});
+      };
+    }
+  }
+
+  if(idx===4){
+    document.querySelectorAll('#tf-flow .tf-card').forEach(card=>{
+      card.addEventListener('click',()=>{
+        document.querySelectorAll('#tf-flow .tf-card').forEach(c=>c.classList.remove('open'));
+        card.classList.add('open');
+      });
+    });
+  }
+
+  if(idx===6){
+    const r=document.getElementById('ctx-range');
+    const msg=document.getElementById('ctx-msg');
+    const knob=document.getElementById('ctx-knob');
+    const apply=()=>{
+      if(!r||!msg||!knob) return;
+      const v=+r.value;
+      knob.style.left=v+'%';
+      if(v<35){msg.className='ctx-msg'; msg.textContent='Smart zone — atenção alta; respostas mais precisas.';}
+      else if(v<70){msg.className='ctx-msg warn'; msg.textContent='Zona intermediária — atenção dividida; risco de omitir detalhes.';}
+      else{msg.className='ctx-msg bad'; msg.textContent='Dumb zone — instruções ignoradas, conceitos misturados, alucinação.';}
+    };
+    if(r){r.oninput=apply; apply();}
+  }
+
+  if(idx===7){
+    const btn=document.getElementById('login-copy-btn');
+    if(btn){
+      btn.onclick=async()=>{
+        try{
+          await navigator.clipboard.writeText(LOGIN_EXAMPLE_PROMPT);
+          const t=btn.textContent;
+          btn.textContent='Copiado!';
+          setTimeout(()=>{btn.textContent=t||'Copiar prompt';},2200);
+        }catch(_){}
+      };
+    }
+  }
+
+  if(idx===8){
+    const btns=[...document.querySelectorAll('.ttft-tbtn')];
+    const c1=document.getElementById('col-ttft');
+    const c2=document.getElementById('col-itl');
+    btns.forEach(b=>{
+      b.addEventListener('click',()=>{
+        btns.forEach(x=>x.classList.toggle('on',x===b));
+        const sc=b.dataset.sc;
+        if(sc==='a'){ c1&&c1.classList.add('hl'); c2&&c2.classList.remove('hl'); }
+        else{ c2&&c2.classList.add('hl'); c1&&c1.classList.remove('hl'); }
+      });
+    });
+  }
+
+  if(idx===9){
+    document.querySelectorAll('#pm-stack .pm-block').forEach(b=>{
+      b.addEventListener('click',()=>{
+        document.querySelectorAll('#pm-stack .pm-block').forEach(x=>x.classList.remove('on'));
+        b.classList.add('on');
+      });
+    });
+  }
+
+  if(idx===11){
+    let state=0;
+    const chat=document.getElementById('capo-chat');
+    const sim=document.getElementById('capo-sim');
+    if(sim&&chat){
+      sim.onclick=()=>{
+        state=1-state;
+        chat.textContent=state? '@src/auth/useAuth.ts Por que este hook dispara duas vezes?'
+          : '@docs/arquitetura.md Explique o fluxo de auth';
+      };
+    }
+  }
+
+  if(idx===12){
+    const ring=document.getElementById('loop-ring');
+    const btn=document.getElementById('loop-pause');
+    if(btn&&ring){
+      btn.onclick=()=>ring.classList.toggle('paused');
+    }
+  }
+
+  if(idx===13){
+    document.querySelectorAll('.hub-box').forEach(box=>{
+      box.addEventListener('click',()=>{
+        document.querySelectorAll('.hub-box').forEach(b=>b.classList.remove('on'));
+        box.classList.add('on');
+      });
+    });
+  }
+
+  if(idx===14){
+    const items=[...document.querySelectorAll('.rt-item')];
+    const rbRules=document.getElementById('rb-rules');
+    const rbMem=document.getElementById('rb-mem');
+    const rbSk=document.getElementById('rb-sk');
+    items.forEach(it=>{
+      it.addEventListener('click',()=>{
+        items.forEach(x=>x.classList.remove('on'));
+        it.classList.add('on');
+        const r=it.dataset.r;
+        [rbRules,rbMem,rbSk].forEach(x=>x&&x.classList.remove('on'));
+        if(r==='rules') rbRules&&rbRules.classList.add('on');
+        if(r==='mem') rbMem&&rbMem.classList.add('on');
+        if(r==='sk') rbSk&&rbSk.classList.add('on');
+      });
+    });
+  }
+
+  if(idx===15){
+    const sw=document.getElementById('golden-sw');
+    const panel=document.getElementById('golden-ex-panel');
+    const closeBtn=document.getElementById('golden-ex-close');
+    let good=false;
+    const applyEmph=()=>{
+      if(!panel)return;
+      panel.classList.toggle('emph-good',good);
+      panel.classList.toggle('emph-bad',!good);
+    };
+    if(sw&&panel){
+      sw.onclick=()=>{
+        if(!panel.classList.contains('is-open')){
+          panel.classList.add('is-open');
+          panel.setAttribute('aria-hidden','false');
+          good=false;
+          sw.classList.remove('on-good');
+          sw.textContent='Modo ruim (sobrecarga) — destaque na coluna da esquerda';
+          applyEmph();
+          return;
+        }
+        good=!good;
+        sw.classList.toggle('on-good',good);
+        sw.textContent=good?'Modo bom (injeção cirúrgica) — destaque na direita':'Modo ruim (sobrecarga) — destaque na esquerda';
+        applyEmph();
+      };
+    }
+    if(closeBtn&&panel&&sw){
+      closeBtn.onclick=()=>{
+        panel.classList.remove('is-open','emph-good','emph-bad');
+        panel.setAttribute('aria-hidden','true');
+        sw.classList.remove('on-good');
+        sw.textContent='Alternar: modo ruim / modo bom';
+        good=false;
+      };
+    }
+  }
+
+  if(idx===16){
+    [...document.querySelectorAll('.qbtn')].forEach(b=>{
+      b.addEventListener('click',()=>{
+        const ok=b.dataset.ok==='1';
+        const fo=document.getElementById('qfb-ok');
+        const fn=document.getElementById('qfb-no');
+        if(fo) fo.style.display=ok?'block':'none';
+        if(fn) fn.style.display=ok?'none':'block';
+      });
+    });
+  }
+
+  if(idx===17){
+    [...document.querySelectorAll('#sdd-row .sdd-step')].forEach(st=>{
+      st.addEventListener('click',()=>{
+        document.querySelectorAll('#sdd-row .sdd-step').forEach(x=>x.classList.remove('on'));
+        st.classList.add('on');
+      });
+    });
+  }
+
+  if(idx===18){
+    const sim=document.getElementById('mem-sim');
+    const sym=document.getElementById('mem-sym');
+    if(sim){
+      sim.onclick=()=>{
+        sym&&sym.classList.add('pulse-once','mem-pulse');
+        setTimeout(()=>sym&&sym.classList.remove('pulse-once','mem-pulse'),600);
+      };
+    }
+  }
+}
+
+btnP.addEventListener('click',()=>goTo(cur-1));
+btnN.addEventListener('click',()=>goTo(cur+1));
+document.addEventListener('keydown',e=>{
+  if(e.key===' '){e.preventDefault();goTo(cur+1);}
+  else if(e.key==='ArrowRight')goTo(cur+1);
+  else if(e.key==='ArrowLeft')goTo(cur-1);
+  else if(e.key==='f'||e.key==='F'){document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();}
+  else if(cur===10&&['1','2','3'].includes(e.key)){
+    const cards=[...document.querySelectorAll('#ide-battle .ide-card')];
+    const i=+e.key-1;
+    cards.forEach((c,j)=>c.classList.toggle('expand',j===i));
+  }
+});
+
+deck.addEventListener('click',e=>{
+  const card=e.target.closest('#ide-battle .ide-card');
+  if(!card||cur!==10)return;
+  const cards=[...document.querySelectorAll('#ide-battle .ide-card')];
+  cards.forEach(c=>c.classList.toggle('expand',c===card));
+});
+let tx0=0;
+document.addEventListener('touchstart',e=>{tx0=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>50)goTo(dx<0?cur+1:cur-1)},{passive:true});
+
+goTo(0);
+</script>
+</body>
+</html>

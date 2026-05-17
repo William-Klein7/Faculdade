@@ -1,0 +1,45 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "cppbuild",
+      "label": "Compilar OpenGL 64bits",
+      "command": "C:/w64devkit/bin/g++.exe",
+      "args": [
+        "-fdiagnostics-color=always",
+        "-g0", // Desativa informações de debug para evitar o erro do assembler
+        "${file}",
+        "-o", "${fileDirname}\\${fileBasenameNoExtension}.exe",
+        "-I", "C:/freeglut/include",
+        "-I", "C:/glfw-3.4.bin.WIN64/include",
+        "-I", "C:/glew-2.3.1/include",
+        "-L", "C:/freeglut/lib/x64",
+        "-L", "C:/glfw-3.4.bin.WIN64/lib-mingw-w64",
+        "-L", "C:/glew-2.3.1/lib/Release/x64",
+        "-lfreeglut",
+        "-lopengl32",
+        "-lglu32",
+        "-lgdi32",
+        "-lwinmm",
+        "-luser32",
+        "-lglew32",
+        "-lglfw3",
+        "-lopengl32",
+        "-lgdi32",
+        "-luser32",
+        "-lkernel32"
+      ],
+      "options": {
+        "cwd": "${fileDirname}",
+        "env": {
+            "PATH": "C:\\w64devkit\\bin;${env:PATH}" 
+        }
+      },
+      "problemMatcher": ["$gcc"],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      }
+    }
+  ]
+}

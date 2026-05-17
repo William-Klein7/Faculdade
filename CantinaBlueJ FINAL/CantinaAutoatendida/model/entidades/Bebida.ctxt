@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Bebida
+comment0.text=\r\n\ Representa\ uma\ Bebida,\ que\ \u00E9\ um\ tipo\ espec\u00EDfico\ de\ {@link\ Produto}.\r\n\ <p>\r\n\ Esta\ classe\ herda\ os\ atributos\ e\ comportamentos\ da\ classe\ {@link\ Produto}\ e\ adiciona\r\n\ um\ atributo\ espec\u00EDfico\ para\ o\ volume\ em\ mililitros\ (ml).\ Ela\ tamb\u00E9m\ implementa\r\n\ o\ m\u00E9todo\ {@code\ getCategoria()}\ para\ retornar\ a\ string\ "Bebida".\r\n\ </p>\r\n\r\n\ @author\ William,\ Murilo\ e\ Calebe\r\n\ @version\ Final\r\n\ @since\ 2024-07-08\r\n
+comment1.params=nome\ preco\ quantidade\ dataValidade\ volumeMl
+comment1.target=Bebida(java.lang.String,\ double,\ int,\ java.time.LocalDate,\ int)
+comment1.text=\r\n\ Construtor\ para\ criar\ um\ novo\ objeto\ Bebida.\r\n\ <p>\r\n\ Repassa\ os\ par\u00E2metros\ comuns\ para\ o\ construtor\ da\ superclasse\ {@link\ Produto}\ e\r\n\ inicializa\ o\ atributo\ espec\u00EDfico\ de\ volume\ desta\ classe.\r\n\ </p>\r\n\r\n\ @param\ nome\ \ \ \ \ \ \ \ \ \ O\ nome\ da\ bebida\ (ex\:\ "Refrigerante",\ "Suco\ de\ Laranja").\r\n\ @param\ preco\ \ \ \ \ \ \ \ \ O\ pre\u00E7o\ unit\u00E1rio\ da\ bebida.\r\n\ @param\ quantidade\ \ \ \ A\ quantidade\ inicial\ da\ bebida\ em\ estoque.\r\n\ @param\ dataValidade\ \ A\ data\ de\ validade\ da\ bebida.\r\n\ @param\ volumeMl\ \ \ \ \ \ O\ volume\ da\ bebida\ em\ mililitros\ (ml).\r\n
+comment2.params=
+comment2.target=int\ getVolumeMl()
+comment2.text=\r\n\ Retorna\ o\ volume\ da\ bebida\ em\ mililitros.\r\n\r\n\ @return\ O\ volume\ da\ bebida\ em\ ml.\r\n
+comment3.params=
+comment3.target=java.lang.String\ getCategoria()
+comment3.text=\r\n\ Retorna\ a\ categoria\ espec\u00EDfica\ para\ este\ tipo\ de\ produto.\r\n\r\n\ @return\ A\ string\ fixa\ "Bebida".\r\n\ @override\r\n
+numComments=4

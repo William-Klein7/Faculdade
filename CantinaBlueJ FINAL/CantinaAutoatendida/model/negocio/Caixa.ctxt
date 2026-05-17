@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Caixa
+comment0.text=\r\n\ Simula\ um\ caixa\ registrador\ f\u00EDsico,\ gerenciando\ o\ dinheiro\ dispon\u00EDvel.\r\n\ <p>\r\n\ Esta\ classe\ \u00E9\ respons\u00E1vel\ por\ manter\ o\ controle\ das\ quantidades\ de\ cada\r\n\ c\u00E9dula\ e\ moeda\ (denomina\u00E7\u00E3o),\ permitir\ o\ abastecimento\ e\ a\ retirada\ manual,\r\n\ e\ calcular\ o\ troco\ para\ transa\u00E7\u00F5es\ de\ venda.\r\n\ </p>\r\n\r\n\ @author\ William,\ Murilo\ e\ Calebe\r\n\ @version\ Final\r\n\ @since\ 2024-07-08\r\n
+comment1.params=
+comment1.target=Caixa()
+comment1.text=\r\n\ Construtor\ que\ inicializa\ o\ caixa\ com\ um\ conjunto\ padr\u00E3o\ de\ c\u00E9dulas\ e\ moedas.\r\n\ Popula\ a\ gaveta\ com\ valores\ comuns\ da\ moeda\ brasileira\ (Real)\ para\ simular\r\n\ um\ caixa\ pronto\ para\ o\ in\u00EDcio\ das\ opera\u00E7\u00F5es.\r\n
+comment2.params=
+comment2.target=java.util.Map\ getGavetaDinheiro()
+comment2.text=\r\n\ Retorna\ uma\ vis\u00E3o\ do\ conte\u00FAdo\ atual\ da\ gaveta\ de\ dinheiro.\r\n\r\n\ @return\ Um\ mapa\ com\ as\ denomina\u00E7\u00F5es\ e\ suas\ respectivas\ quantidades.\r\n
+comment3.params=valor\ quantidade
+comment3.target=void\ abastecerDinheiro(double,\ int)
+comment3.text=\r\n\ Adiciona\ uma\ quantidade\ espec\u00EDfica\ de\ uma\ c\u00E9dula\ ou\ moeda\ ao\ caixa\ (abastecimento).\r\n\r\n\ @param\ valor\ \ \ \ \ \ O\ valor\ da\ denomina\u00E7\u00E3o\ a\ ser\ adicionada\ (ex\:\ 50.0\ para\ R$50,\ 0.25\ para\ R$0.25).\r\n\ @param\ quantidade\ O\ n\u00FAmero\ de\ c\u00E9dulas/moedas\ a\ serem\ adicionadas.\r\n\ @throws\ OperacaoCaixaException\ Se\ o\ valor\ ou\ a\ quantidade\ fornecidos\ forem\ negativos\ ou\ nulos.\r\n
+comment4.params=valor\ quantidade
+comment4.target=void\ retirarDinheiro(double,\ int)
+comment4.text=\r\n\ Retira\ uma\ quantidade\ espec\u00EDfica\ de\ uma\ c\u00E9dula\ ou\ moeda\ do\ caixa.\r\n\r\n\ @param\ valor\ \ \ \ \ \ O\ valor\ da\ denomina\u00E7\u00E3o\ a\ ser\ retirada.\r\n\ @param\ quantidade\ A\ quantidade\ de\ c\u00E9dulas/moedas\ a\ serem\ retiradas.\r\n\ @throws\ OperacaoCaixaException\ Se\ o\ valor\ ou\ a\ quantidade\ forem\ inv\u00E1lidos,\ ou\ se\ n\u00E3o\r\n\ houver\ quantidade\ suficiente\ daquela\ denomina\u00E7\u00E3o\ no\ caixa.\r\n
+comment5.params=valorTroco
+comment5.target=java.util.Map\ fornecerTroco(double)
+comment5.text=\r\n\ Calcula\ e\ fornece\ o\ troco\ para\ um\ determinado\ valor,\ utilizando\ um\ algoritmo\ guloso.\r\n\ <p>\r\n\ O\ m\u00E9todo\ tenta\ compor\ o\ troco\ usando\ o\ menor\ n\u00FAmero\ de\ c\u00E9dulas/moedas\ poss\u00EDvel,\r\n\ priorizando\ as\ de\ maior\ valor.\ Se\ o\ troco\ for\ calculado\ com\ sucesso,\ as\ quantidades\r\n\ s\u00E3o\ deduzidas\ da\ gaveta.\ Caso\ contr\u00E1rio,\ uma\ exce\u00E7\u00E3o\ \u00E9\ lan\u00E7ada\ e\ o\ estado\ da\ gaveta\r\n\ permanece\ inalterado.\r\n\ </p>\r\n\ Este\ m\u00E9todo\ tamb\u00E9m\ lida\ com\ imprecis\u00F5es\ de\ ponto\ flutuante\ durante\ os\ c\u00E1lculos.\r\n\r\n\ @param\ valorTroco\ O\ valor\ total\ do\ troco\ a\ ser\ fornecido.\r\n\ @return\ Um\ mapa\ contendo\ as\ c\u00E9dulas/moedas\ e\ as\ respectivas\ quantidades\ que\ comp\u00F5em\ o\ troco.\r\n\ @throws\ FaltaTrocoException\ Se\ o\ caixa\ n\u00E3o\ possuir\ as\ c\u00E9dulas/moedas\ necess\u00E1rias\ para\r\n\ fornecer\ o\ troco\ exato.\r\n
+numComments=6

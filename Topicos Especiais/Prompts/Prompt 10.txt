@@ -1,0 +1,11 @@
+Agora adicione testes para a função calculateCartSummary usando Vitest.
+
+Crie testes para:
+1. total sem cupom;
+2. total com URI10;
+3. desconto aplicado apenas sobre subtotal;
+4. frete não recebe desconto;
+5. quantity deve multiplicar o preço do item.
+
+Se alguma função precisar ser exportada para testar, ajuste os exports.
+Configure o Vitest neste projeto e adicione o script de teste no package.json.

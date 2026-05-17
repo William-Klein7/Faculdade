@@ -1,31 +1,65 @@
 #include <stdio.h>
 #include "ponto.h"
-#define tam 2
 
 int main()
 {
-  ponto p[tam];
+  int i;
   float x, y;
-  int i = 0;
-
-  printf("Digite os valores do primeiro plano cartesiano:\nx=");
-  scanf("%f", &x);
-  setx(&p[0], x);
-  printf("y=");
-  scanf("%f", &y);
-  sety(&p[0], y);
-
-  printf("Digite os valores do segundo plano cartesiano:\nx=");
-  scanf("%f", &x);
-  printf("y=");
-  scanf("%f", &y);
-  setponto(&p[1], x, y);
-  for (i = 0; i < tam; i++)
+  ponto a, b, p[2];
+  inicializa_ponto(&a);
+  inicializa_ponto(&b);
+  inicializa_ponto(&p[0]);
+  inicializa_ponto(&p[1]);
+  // Setar valores
+  for (i = 0; i < 4; i++)
   {
-    printf("\nValores do %do plano cartesiano: (%.1f , %.1f)", i + 1, getx(&p[i]), gety(&p[i]));
+    printf("x do %do. ponto: ", (i + 1));
+    scanf("%f", &x);
+    printf("y do %do. ponto: ", (i + 1));
+    scanf("%f", &y);
+    if (i == 0)
+      set_ponto(&a, x, y);
+    if (i == 1)
+    {
+      set_ponto_x(&b, x);
+      set_ponto_y(&b, y);
+    }
+    if (i == 2)
+      set_ponto(&p[0], x, y);
+    if (i == 3)
+      set_ponto(&p[1], x, y);
+    printf("\n");
   }
-  printf("\nPonto de origem do ponto 1: %.1f", ponto_origem(&p[0]));
-  printf("\nDistancia entre os dois pontos: %.1f", ponto_distancia(&p[0], &p[1]));
+  // Consulta dos valores
+  for (i = 0; i < 4; i++)
+  {
+    if (i == 0)
+    {
+      x = get_ponto_x(&a);
+      y = get_ponto_y(&a);
+    }
+    if (i == 1)
+    {
+      x = get_ponto_x(&b);
+      y = get_ponto_y(&b);
+    }
+    if (i == 2)
+    {
+      x = get_ponto_x(&p[0]);
+      y = get_ponto_y(&p[0]);
+    }
+    if (i == 3)
+    {
+      x = get_ponto_x(&p[1]);
+      y = get_ponto_y(&p[1]);
+    }
+    printf("%do. ponto (%.2f,%.2f)\n", (i + 1), x, y);
+  }
 
-  return 0;
+  x = distancia_ponto(&a, &b);
+  y = distancia_ponto(&a, &p[0]);
+
+  printf("Distancias do:\n");
+  printf("1° p/ 2° ponto: %f\n", x);
+  printf("1° p/ 3° ponto: %f\n", y);
 }

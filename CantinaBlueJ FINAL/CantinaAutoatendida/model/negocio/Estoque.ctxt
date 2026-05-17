@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=Estoque
+comment0.text=\r\n\ Gerencia\ o\ invent\u00E1rio\ de\ produtos\ da\ cantina.\r\n\ <p>\r\n\ Esta\ classe\ \u00E9\ respons\u00E1vel\ por\ armazenar,\ buscar,\ adicionar\ e\ remover\r\n\ inst\u00E2ncias\ de\ {@link\ Produto}.\ Ela\ centraliza\ todas\ as\ opera\u00E7\u00F5es\ relacionadas\r\n\ ao\ estoque,\ incluindo\ valida\u00E7\u00F5es\ e\ filtragens.\ Ao\ ser\ instanciada,\r\n\ a\ classe\ j\u00E1\ \u00E9\ populada\ com\ uma\ carga\ inicial\ de\ produtos\ para\ demonstra\u00E7\u00E3o.\r\n\ </p>\r\n\r\n\ @author\ William,\ Murilo\ e\ Calebe\r\n\ @version\ Final\r\n\ @since\ 2024-07-08\r\n
+comment1.params=
+comment1.target=Estoque()
+comment1.text=\r\n\ Construtor\ que\ inicializa\ o\ estoque.\r\n\ Cria\ a\ lista\ de\ produtos\ e\ a\ popula\ com\ um\ conjunto\ inicial\ de\r\n\ {@link\ Lanche}\ e\ {@link\ Bebida}\ para\ fins\ de\ demonstra\u00E7\u00E3o.\r\n
+comment2.params=
+comment2.target=java.util.List\ getProdutos()
+comment2.text=\r\n\ Retorna\ a\ lista\ completa\ de\ todos\ os\ produtos\ no\ estoque.\r\n\ <p>\r\n\ Note\ que\ esta\ lista\ inclui\ todos\ os\ produtos\ cadastrados,\r\n\ independentemente\ de\ estarem\ dispon\u00EDveis\ (com\ quantidade\ >\ 0)\ ou\ vencidos.\r\n\ Para\ obter\ apenas\ os\ produtos\ para\ venda,\ use\ {@link\ \#listarProdutosDisponiveis()}.\r\n\ </p>\r\n\r\n\ @return\ A\ lista\ de\ todos\ os\ {@link\ Produto}\ cadastrados.\r\n
+comment3.params=nome
+comment3.target=java.util.Optional\ buscarProdutoPorNome(java.lang.String)
+comment3.text=\r\n\ Busca\ um\ produto\ pelo\ seu\ nome,\ ignorando\ diferen\u00E7as\ de\ mai\u00FAsculas\ e\ min\u00FAsculas.\r\n\r\n\ @param\ nome\ O\ nome\ do\ produto\ a\ ser\ buscado.\r\n\ @return\ Um\ {@link\ Optional}\ contendo\ o\ {@link\ Produto}\ se\ encontrado,\r\n\ ou\ um\ {@link\ Optional}\ vazio\ caso\ contr\u00E1rio.\r\n
+comment4.params=produto
+comment4.target=void\ adicionarProduto(model.entidades.Produto)
+comment4.text=\r\n\ Adiciona\ um\ novo\ produto\ ao\ estoque\ ap\u00F3s\ validar\ sua\ unicidade.\r\n\ O\ m\u00E9todo\ verifica\ se\ j\u00E1\ existe\ um\ produto\ com\ o\ mesmo\ nome\ (ignorando\ capitaliza\u00E7\u00E3o)\r\n\ antes\ de\ realizar\ a\ inser\u00E7\u00E3o.\r\n\r\n\ @param\ produto\ O\ {@link\ Produto}\ a\ ser\ adicionado.\r\n\ @throws\ ValidacaoProdutoException\ Se\ j\u00E1\ existir\ um\ produto\ com\ o\ mesmo\ nome\ no\ estoque.\r\n
+comment5.params=nomeProduto
+comment5.target=void\ removerProduto(java.lang.String)
+comment5.text=\r\n\ Remove\ um\ produto\ do\ estoque\ com\ base\ no\ seu\ nome.\r\n\ A\ busca\ pelo\ nome\ para\ remo\u00E7\u00E3o\ ignora\ diferen\u00E7as\ de\ mai\u00FAsculas\ e\ min\u00FAsculas.\r\n\r\n\ @param\ nomeProduto\ O\ nome\ do\ produto\ a\ ser\ removido.\r\n
+comment6.params=
+comment6.target=java.util.List\ listarProdutosDisponiveis()
+comment6.text=\r\n\ Retorna\ uma\ lista\ de\ produtos\ que\ est\u00E3o\ dispon\u00EDveis\ para\ venda.\r\n\ <p>\r\n\ A\ disponibilidade\ \u00E9\ definida\ por\ duas\ condi\u00E7\u00F5es\:\r\n\ 1.\ A\ quantidade\ em\ estoque\ deve\ ser\ maior\ que\ zero.\r\n\ 2.\ O\ produto\ n\u00E3o\ pode\ estar\ com\ a\ data\ de\ validade\ vencida.\r\n\ </p>\r\n\r\n\ @return\ Uma\ nova\ lista\ contendo\ apenas\ os\ produtos\ dispon\u00EDveis.\r\n
+numComments=7

@@ -1,0 +1,7 @@
+#BlueJ class context
+comment0.target=OperacaoCaixaException
+comment0.text=\r\n\ Exce\u00E7\u00E3o\ lan\u00E7ada\ para\ indicar\ erros\ em\ opera\u00E7\u00F5es\ do\ caixa,\r\n\ tais\ como\ tentativas\ de\ retirada\ sem\ saldo\ suficiente\r\n\ ou\ fornecimento\ de\ valores\ inv\u00E1lidos.\r\n
+comment1.params=message
+comment1.target=OperacaoCaixaException(java.lang.String)
+comment1.text=\r\n\ Construtor\ que\ cria\ a\ exce\u00E7\u00E3o\ com\ uma\ mensagem\ detalhada.\r\n\r\n\ @param\ message\ Mensagem\ explicando\ o\ motivo\ da\ exce\u00E7\u00E3o.\r\n
+numComments=2

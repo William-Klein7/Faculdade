@@ -1,0 +1,12 @@
+Agora padronize todos os nomes da feature de carrinho.
+
+Renomeie:
+- ProductCard para CartItem
+- ProductList para CartList
+- useProducts para useCart
+- products para cartItems
+- calculateProductsSummary para calculateCartSummary, se existir
+
+Depois atualize todos os imports e exports.
+
+Remova arquivos antigos que ficaram sem uso.

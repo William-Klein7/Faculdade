@@ -1,0 +1,1 @@
+Para executar algo em Opengl, basta apertar Ctrl+Shift+B

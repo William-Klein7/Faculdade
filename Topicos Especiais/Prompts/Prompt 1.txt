@@ -1,0 +1,12 @@
+Agora evolua a arquitetura do carrinho.
+
+Tarefas:
+1. Transforme products em cartItems.
+2. Cada item deve ter quantity.
+3. O subtotal deve considerar price * quantity.
+4. O cupom URI10 continua dando 10% de desconto apenas sobre os produtos, não sobre o frete.
+5. Mantenha o frete fixo em R$ 40,00.
+6. Atualize todos os componentes, hooks e funções.
+7. Remova qualquer código antigo que não faça mais sentido.
+
+Faça as alterações diretamente nos arquivos.

@@ -1,0 +1,15 @@
+Agora adicione suporte a dois cupons:
+
+URI10:
+- 10% de desconto apenas sobre subtotal
+
+FRETEGRATIS:
+- remove o valor do frete
+- não altera o subtotal
+
+Regras:
+1. Apenas um cupom pode ser aplicado por vez.
+2. Cupom inválido não aplica desconto.
+3. O total nunca pode ficar negativo.
+4. Atualize calculateCartSummary, useCart e CouponInput.
+5. Mantenha os testes passando.

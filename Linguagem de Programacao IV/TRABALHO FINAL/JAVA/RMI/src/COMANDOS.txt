@@ -1,0 +1,3 @@
+javac *.java
+java ChatServer
+java ChatClient

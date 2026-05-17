@@ -1,0 +1,35 @@
+{
+"alteracoes_privilegios": [
+	{
+		"id_alt" : 1,
+		"id_usuario_alvo" : 329,
+		"id_usuario_executor" : 304,
+		"privilegio_anterior" : "Leitura_Comercial",
+		"privilegio_novo" : "DBA",
+		"data_hora" : "2026-04-19T01:35:00.000Z"
+	},
+	{
+		"id_alt" : 2,
+		"id_usuario_alvo" : 330,
+		"id_usuario_executor" : 305,
+		"privilegio_anterior" : "Leitura_Comercial",
+		"privilegio_novo" : "DBA",
+		"data_hora" : "2026-04-18T01:40:00.000Z"
+	},
+	{
+		"id_alt" : 3,
+		"id_usuario_alvo" : 331,
+		"id_usuario_executor" : 306,
+		"privilegio_anterior" : "Leitura_Comercial",
+		"privilegio_novo" : "DBA",
+		"data_hora" : "2026-04-17T01:45:00.000Z"
+	},
+	{
+		"id_alt" : 4,
+		"id_usuario_alvo" : 332,
+		"id_usuario_executor" : 307,
+		"privilegio_anterior" : "Leitura_Comercial",
+		"privilegio_novo" : "DBA",
+		"data_hora" : "2026-04-16T01:50:00.000Z"
+	}
+]}

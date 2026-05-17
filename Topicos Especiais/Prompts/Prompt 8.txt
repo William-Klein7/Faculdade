@@ -1,0 +1,10 @@
+Revise toda a feature cart e remova qualquer duplicação.
+
+Você pode:
+- mover constantes para arquivos separados;
+- unificar funções parecidas;
+- simplificar estados;
+- remover props que considerar desnecessárias;
+- deixar o código mais limpo.
+
+Mas mantenha exatamente o mesmo comportamento.

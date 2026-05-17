@@ -1,0 +1,19 @@
+Agora reorganize a feature cart nesta estrutura:
+
+src/features/cart/
+  components/
+    CartItem.jsx
+    CartList.jsx
+    CartSummary.jsx
+  hooks/
+    useCart.js
+  utils/
+    calculateCartSummary.js
+    formatCurrency.js
+  data/
+    cartItems.js
+  index.js
+
+Mova os arquivos existentes para essa estrutura.
+Atualize todos os imports.
+Use o index.js da feature para exportar os principais módulos.

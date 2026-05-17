@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=PainelAdmin
+comment0.text=\r\n\ Representa\ o\ painel\ de\ navega\u00E7\u00E3o\ principal\ para\ as\ fun\u00E7\u00F5es\ administrativas\ do\ sistema.\r\n\ Esta\ janela\ (JFrame)\ serve\ como\ um\ dashboard,\ oferecendo\ acesso\ \u00E0s\ telas\ de\r\n\ gerenciamento\ de\ estoque,\ gerenciamento\ de\ caixa\ e\ visualiza\u00E7\u00E3o\ de\ relat\u00F3rios.\r\n\ <p>\r\n\ Uma\ funcionalidade\ importante\ \u00E9\ que,\ ao\ fechar\ esta\ janela,\ a\ tela\ principal\ do\r\n\ cliente\ \u00E9\ atualizada\ para\ refletir\ quaisquer\ mudan\u00E7as\ feitas\ (ex\:\ adi\u00E7\u00E3o\ de\ novos\ produtos).\r\n\r\n\ @author\ William,\ Murilo\ e\ Calebe\r\n\ @version\ Final\r\n\ @since\ 2024-07-08\r\n
+comment1.params=parent\ estoque\ caixa\ historicoVendas
+comment1.target=PainelAdmin(ui.cliente.TelaPrincipalCliente,\ model.negocio.Estoque,\ model.negocio.Caixa,\ java.util.List)
+comment1.text=\r\n\ Construtor\ do\ Painel\ Administrativo.\r\n\ <p>\r\n\ Configura\ a\ janela\ e\ cria\ os\ bot\u00F5es\ de\ navega\u00E7\u00E3o\ para\ as\ diferentes\ se\u00E7\u00F5es\r\n\ administrativas.\ Adiciona\ um\ listener\ que\ atualiza\ a\ tela\ de\ cliente\r\n\ {@code\ parent}\ sempre\ que\ esta\ janela\ administrativa\ \u00E9\ fechada,\ garantindo\ que\r\n\ as\ altera\u00E7\u00F5es\ no\ estoque\ sejam\ refletidas\ imediatamente\ na\ interface\ do\ cliente.\r\n\r\n\ @param\ parent\ \ \ \ \ \ \ \ \ \ A\ inst\u00E2ncia\ da\ {@link\ TelaPrincipalCliente},\ que\ ser\u00E1\ atualizada\ ao\ fechar\ este\ painel.\r\n\ @param\ estoque\ \ \ \ \ \ \ \ \ A\ inst\u00E2ncia\ do\ gerenciador\ de\ {@link\ Estoque},\ passada\ para\ as\ telas\ de\ gest\u00E3o\ e\ relat\u00F3rios.\r\n\ @param\ caixa\ \ \ \ \ \ \ \ \ \ \ A\ inst\u00E2ncia\ do\ gerenciador\ de\ {@link\ Caixa},\ passada\ para\ a\ tela\ de\ gest\u00E3o\ de\ caixa.\r\n\ @param\ historicoVendas\ A\ lista\ de\ {@link\ Pedido}\ que\ representa\ o\ hist\u00F3rico\ de\ vendas,\ passada\ para\ a\ tela\ de\ relat\u00F3rios.\r\n
+comment2.params=e
+comment2.target=void\ windowClosed(java.awt.event.WindowEvent)
+comment2.text=\r\n\ Invocado\ quando\ a\ janela\ \u00E9\ fechada.\r\n\ Chama\ o\ m\u00E9todo\ para\ recarregar\ os\ produtos\ na\ tela\ do\ cliente.\r\n\ @param\ e\ o\ evento\ de\ janela.\r\n
+comment3.params=botao
+comment3.target=void\ personalizarBotao(javax.swing.JButton)
+comment3.text=\r\n\ M\u00E9todo\ auxiliar\ para\ aplicar\ um\ estilo\ visual\ consistente\ aos\ bot\u00F5es\ do\ painel.\r\n\r\n\ @param\ botao\ O\ {@link\ JButton}\ a\ ser\ personalizado.\r\n
+numComments=4

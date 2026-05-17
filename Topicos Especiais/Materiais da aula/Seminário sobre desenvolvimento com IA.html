@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seminários — IA no desenvolvimento</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Manrope:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#0d1117;--sf0:#161b22;--sf1:#1c2128;--sf2:#21262d;
+  --txt:#e6edf3;--dim:#7d8590;--mut:#30363d;--bd:rgba(255,255,255,.07);--bd2:rgba(255,255,255,.14);
+  --blue:#58a6ff;--green:#3fb950;--orange:#f0883e;--purple:#a371f7;
+  --red:#ff7b72;--cyan:#56d4dd;--yellow:#e3b341;--lavender:#c9d1d9;
+  --acc:var(--blue);
+}
+html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);color:var(--txt);font-family:'Manrope',sans-serif;line-height:1.6;font-size:16px}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background-image:linear-gradient(var(--bd) 1px,transparent 1px),linear-gradient(90deg,var(--bd) 1px,transparent 1px);background-size:50px 50px}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--acc);transition:width .4s ease,background .6s ease;z-index:200}
+#secbar{position:fixed;bottom:0;left:0;right:0;height:3px;background:var(--acc);opacity:.5;transition:background .6s ease;z-index:200}
+#nav{position:fixed;bottom:22px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;z-index:100}
+.nbtn{background:var(--sf1);border:1px solid var(--bd2);color:var(--dim);width:38px;height:38px;border-radius:50%;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;transition:all .2s;user-select:none}
+.nbtn:hover:not(:disabled){border-color:var(--acc);color:var(--acc)}
+.nbtn:disabled{opacity:.2;cursor:default}
+.dots{display:flex;gap:5px;align-items:center;padding:0 6px}
+.dot{width:8px;height:8px;border-radius:4px;background:var(--mut);cursor:pointer;transition:all .25s}
+.dot.on{background:var(--acc);box-shadow:0 0 8px var(--acc);width:24px}
+.dot:hover:not(.on){background:var(--dim)}
+#sctr{position:fixed;bottom:22px;right:22px;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--mut);z-index:100}
+#hint{position:fixed;bottom:22px;left:22px;font-size:13px;color:var(--mut);z-index:100;display:flex;gap:4px;align-items:center;flex-wrap:wrap;max-width:min(520px,42vw)}
+.kk{background:var(--sf1);border:1px solid var(--bd2);border-radius:3px;padding:1px 5px;font-family:'JetBrains Mono',monospace;font-size:11px}
+#deck{position:fixed;inset:0;z-index:1}
+.slide{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;padding:20px 24px 56px;opacity:0;transform:translateY(16px);transition:opacity .5s ease,transform .5s ease;pointer-events:none;overflow-y:auto;overflow-x:hidden}
+.slide.on{opacity:1;transform:translateY(0);pointer-events:all}
+.shead{display:flex;align-items:center;justify-content:space-between;width:100%;max-width:1100px;margin-bottom:8px;flex-shrink:0}
+.snum{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--mut);letter-spacing:2px}
+.playbook-ref{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);opacity:.85}
+.stag{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border-radius:20px;border:1px solid;font-family:'JetBrains Mono',monospace}
+.ttl{font-family:'Syne',sans-serif;font-size:clamp(1.25rem,2.8vw,2.1rem);font-weight:700;line-height:1.15;text-align:center;margin-bottom:6px;max-width:100%}
+.sub{font-size:.98rem;color:var(--dim);text-align:center;margin-bottom:10px;max-width:100%}
+.sbody{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:14px;width:100%;max-width:1100px;align-items:start}
+.sbody.solo{grid-template-columns:minmax(0,1fr)}
+.stxt{display:flex;flex-direction:column;gap:6px;min-width:0}
+.stxt p{font-size:13.5px;color:var(--dim);line-height:1.6}
+.stxt p strong{color:var(--txt)}
+.bullets{display:flex;flex-direction:column;gap:4px;margin-top:4px}
+.bullet{display:flex;align-items:flex-start;gap:8px;font-size:13px;color:var(--dim);padding:6px 10px;background:var(--sf1);border-radius:6px;border-left:3px solid var(--acc)}
+.bullet strong{color:var(--txt);flex-shrink:0}
+.bullet.bad{border-left-color:var(--red)}
+.quote{padding:10px 14px;border-left:3px solid var(--acc);background:var(--sf0);border-radius:0 8px 8px 0;font-style:italic;font-size:13px;color:var(--txt);margin-top:6px}
+.callout-box{margin-top:8px;background:rgba(240,136,62,.08);border:1px solid rgba(240,136,62,.35);border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--dim);max-width:1040px;width:100%}
+.callout-box strong{color:var(--orange)}
+.callout-red{margin-top:8px;background:rgba(255,123,114,.08);border:1px solid rgba(255,123,114,.35);border-radius:8px;padding:10px 12px;font-size:12.5px;color:var(--dim);max-width:1040px;width:100%}
+.callout-red strong{color:var(--red)}
+
+.cover-slide{background:radial-gradient(ellipse at 50% 35%,rgba(88,166,255,.07) 0%,transparent 70%)}
+.cover-slide .ttl{font-size:clamp(1.85rem,4vw,3rem);font-weight:800;margin-bottom:10px}
+.cover-badges{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:16px}
+.era-badge{font-size:11px;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border-radius:20px;border:1px solid;font-family:'JetBrains Mono',monospace;opacity:.8}
+.cover-visual{margin-top:16px;width:100%;max-width:640px;height:110px;position:relative}
+.ide-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;width:100%;height:100%}
+.ide-cell{background:var(--sf1);border:1px solid var(--bd2);border-radius:6px;opacity:0;font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--dim);padding:4px 6px;display:flex;flex-direction:column;gap:2px;overflow:hidden}
+.slide.on .ide-cell{animation:fadein .4s ease calc(var(--di)*0.06s) both}
+.ide-line{height:5px;border-radius:2px;background:var(--mut)}
+.ide-line.c1{background:rgba(86,212,221,.4);width:60%}
+.ide-line.c2{background:rgba(88,166,255,.4);width:80%}
+.ide-line.c3{background:rgba(63,185,80,.4);width:45%}
+.ide-line.c4{background:rgba(163,113,247,.4);width:70%}
+
+.divider-slide{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px;min-height:0}
+.divider-emoji{font-size:clamp(2rem,6vw,3rem);margin-bottom:8px}
+.divider-label{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:3px;color:var(--acc);text-transform:uppercase;margin-bottom:6px}
+.divider-ttl{font-family:'Syne',sans-serif;font-size:clamp(1.6rem,4.5vw,2.8rem);font-weight:800;line-height:1.15;max-width:900px}
+
+.golden-split{display:grid;grid-template-columns:1fr 1fr;gap:12px;width:100%;max-width:920px;margin-top:8px}
+@media(max-width:780px){.golden-split{grid-template-columns:1fr}}
+.para-col{background:var(--sf0);border:2px solid var(--bd2);border-radius:10px;padding:12px;display:flex;flex-direction:column;gap:8px}
+.bad-panel{border-color:rgba(255,123,114,.4)!important}
+.good-panel{border-color:rgba(63,185,80,.4)!important}
+.prompt-h{font-family:'Syne',sans-serif;font-size:13px;font-weight:700;margin-bottom:4px}
+.prompt-h.bad{color:var(--red)}
+.prompt-h.good{color:var(--green)}
+.prompt-pre{font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.55;background:var(--sf1);border:1px solid var(--bd2);border-radius:8px;padding:10px 12px;white-space:pre-wrap;color:#d4d4d4;text-align:left;max-height:min(38vh,320px);overflow:auto}
+
+.ctx-slide-bar{height:44px;border-radius:8px;background:linear-gradient(90deg,rgba(63,185,80,.45) 0%,rgba(227,179,65,.35) 45%,rgba(240,136,62,.4) 70%,rgba(255,123,114,.55) 100%);position:relative;overflow:hidden;border:1px solid var(--bd)}
+.ctx-slide-knob{position:absolute;top:2px;bottom:2px;width:8px;margin-left:-4px;background:var(--txt);border-radius:4px;box-shadow:0 0 10px rgba(0,0,0,.5);pointer-events:none}
+.ctx-slider{width:100%;max-width:520px;margin:10px auto 0;display:block;accent-color:var(--cyan)}
+.ctx-msg{text-align:center;font-family:'JetBrains Mono',monospace;font-size:12px;margin-top:8px;color:var(--green)}
+.ctx-msg.warn{color:var(--yellow)}
+.ctx-msg.bad{color:var(--red)}
+
+.login-wrap{display:flex;flex-direction:column;align-items:center;gap:10px;width:100%;max-width:920px;margin-top:8px}
+.login-pre{font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.55;background:var(--sf0);border:1px solid var(--bd2);border-radius:10px;padding:14px 16px;max-height:min(46vh,440px);overflow:auto;text-align:left;white-space:pre-wrap;color:#d4d4d4;width:100%}
+.lab-btn{font-family:'JetBrains Mono',monospace;font-size:11px;padding:6px 14px;border-radius:8px;border:1px solid var(--blue);background:rgba(88,166,255,.1);color:var(--blue);cursor:pointer;text-decoration:none}
+.lab-btn:hover{background:rgba(88,166,255,.18)}
+.lab-note{font-size:11px;color:var(--mut);text-align:center;max-width:720px}
+
+.rules-grid{display:grid;grid-template-columns:1fr;gap:10px;width:100%;max-width:720px;margin-top:12px}
+.rule-line{font-family:'Syne',sans-serif;font-size:clamp(1rem,2.2vw,1.35rem);font-weight:700;text-align:center;padding:14px 16px;background:var(--sf0);border:1px solid var(--bd2);border-radius:10px;border-left:4px solid var(--orange);color:var(--txt)}
+
+.particles{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.pt{position:absolute;width:3px;height:3px;border-radius:50%;background:var(--acc);opacity:0}
+.slide.on .pt{animation:ptfloat var(--d,6s) ease-in-out var(--dl,0s) infinite}
+@keyframes ptfloat{0%{opacity:0;transform:translate(0,0)}20%{opacity:.8}80%{opacity:.5}100%{opacity:0;transform:translate(var(--tx,30px),var(--ty,-60px))}}
+.slide.on .shead{animation:fadein .4s ease .1s both}
+.slide.on .ttl{animation:fadein .5s ease .2s both}
+.slide.on .sub{animation:fadein .5s ease .3s both}
+.slide.on .sbody,.slide.on .golden-split,.slide.on .cover-visual,.slide.on .rules-grid{animation:fadein .5s ease .35s both}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+.si .stag{color:var(--blue);border-color:var(--blue)}
+.sc .stag{color:var(--cyan);border-color:var(--cyan)}
+.sr .stag{color:var(--red);border-color:var(--red)}
+.st .stag{color:var(--green);border-color:var(--green)}
+.sm .stag{color:var(--purple);border-color:var(--purple)}
+.sa .stag{color:var(--yellow);border-color:var(--yellow)}
+.sl .stag{color:var(--lavender);border-color:var(--lavender)}
+.sf .stag{color:var(--orange);border-color:var(--orange)}
+.topic-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;max-width:1040px;margin-top:8px}
+@media(max-width:820px){.topic-grid{grid-template-columns:1fr}}
+.topic-card{background:var(--sf0);border:1px solid var(--bd2);border-radius:8px;padding:8px 10px;text-align:left;border-left:3px solid var(--acc)}
+.topic-num{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--mut);letter-spacing:1px}
+.topic-title{font-family:'Syne',sans-serif;font-size:12.5px;font-weight:700;color:var(--txt);margin:2px 0 4px}
+.topic-desc{font-size:11.5px;color:var(--dim);line-height:1.45}
+</style>
+</head>
+<body>
+<div id="prog"></div>
+<div id="secbar"></div>
+<div id="deck"></div>
+<div id="nav">
+  <button type="button" class="nbtn" id="btn-prev" aria-label="Anterior">←</button>
+  <div class="dots" id="dots"></div>
+  <button type="button" class="nbtn" id="btn-next" aria-label="Próximo">→</button>
+</div>
+<div id="sctr">01 / 34</div>
+<div id="hint"><span class="kk">←</span><span class="kk">→</span> navegar · <span class="kk">Espaço</span> próximo · <span class="kk">F</span> tela cheia</div>
+
+<script>
+const PROMPT_G1=`Crie um componente React de lista de tarefas com:
+- adicionar item
+- remover item
+- marcar como concluído`;
+
+const PROMPT_G2=`Use a biblioteca react-super-mega-form para validar um formulário`;
+
+function escTxt(t){return t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+
+const SECS=[
+  {name:'Abertura', cls:'si', color:'#58a6ff', first:0, last:2},
+  {name:'Grupo 1', cls:'sc', color:'#56d4dd', first:3, last:7},
+  {name:'Grupo 2', cls:'sr', color:'#ff7b72', first:8, last:12},
+  {name:'Grupo 3', cls:'st', color:'#3fb950', first:13, last:16},
+  {name:'Grupo 4', cls:'sm', color:'#a371f7', first:17, last:20},
+  {name:'Grupo 5', cls:'sa', color:'#e3b341', first:21, last:24},
+  {name:'Grupo 6', cls:'sl', color:'#c9d1d9', first:25, last:28},
+  {name:'Fechamento', cls:'sf', color:'#f0883e', first:29, last:33},
+];
+const N=34;
+const sOf=i=>SECS.find(x=>i>=x.first&&i<=x.last)||SECS[0];
+
+function shead(i,s,tag,ref=''){
+  return `<div class="shead">
+    <span class="snum">${String(i+1).padStart(2,'0')}</span>
+    ${ref?`<span class="playbook-ref">${ref}</span>`:`<span></span>`}
+    <span class="stag">${tag}</span>
+  </div>`;
+}
+
+function buildCover(){
+  const cells=Array.from({length:18},(_,i)=>{
+    const lines=['c1','c2','c3','c4','','','c1 c3','c2'];
+    const ls=Array.from({length:Math.floor(Math.random()*4)+2},()=>`<div class="ide-line ${lines[Math.floor(Math.random()*lines.length)]}"></div>`).join('');
+    return `<div class="ide-cell" style="--di:${i}">${ls}</div>`;
+  }).join('');
+  return `
+    <div class="particles">${Array.from({length:8},(_,i)=>`<div class="pt" style="left:${10+i*12}%;top:${20+Math.sin(i)*30}%;--tx:${-20+i*5}px;--ty:-${40+i*8}px;--d:${4+i*.5}s;--dl:${i*.4}s"></div>`).join('')}</div>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px;opacity:.75">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--blue);border:1px solid rgba(88,166,255,.4);padding:3px 10px;border-radius:20px;letter-spacing:2px">Seminários</span>
+    </div>
+    <h1 class="ttl">IA no desenvolvimento</h1>
+    <p class="sub">Investigar na prática como a IA funciona no desenvolvimento</p>
+    <div class="cover-visual"><div class="ide-grid">${cells}</div></div>
+    <div class="cover-badges">
+      <span class="era-badge" style="color:var(--cyan);border-color:var(--cyan)">6 grupos</span>
+      <span class="era-badge" style="color:var(--green);border-color:var(--green)">15–20 min / grupo</span>
+      <span class="era-badge" style="color:var(--yellow);border-color:var(--yellow)">Código real</span>
+      <span class="era-badge" style="color:var(--red);border-color:var(--red)">Mostrar erro da IA</span>
+    </div>`;
+}
+
+function buildDivider(i,s,num,title){
+  return `${shead(i,s,'Atividade','')}
+    <div class="divider-slide">
+      <div class="divider-emoji">👇</div>
+      <div class="divider-label">Grupo ${num}</div>
+      <h2 class="divider-ttl">${title}</h2>
+    </div>`;
+}
+
+function buildSlideHTML(i){
+  const s=sOf(i);
+  switch(i){
+    case 0: return buildCover();
+    case 1: return `${shead(i,s,'Abertura','Visão geral')}
+      <h2 class="ttl">Seminários — visão geral</h2>
+      <p class="sub">Formato e regras do trabalho em grupo</p>
+      <div class="sbody solo">
+        <div class="stxt" style="max-width:900px;margin:0 auto">
+          <p><strong>Objetivo:</strong> investigar na prática como a IA funciona no desenvolvimento.</p>
+          <p><strong>Formato:</strong> 6 grupos · <strong>15–20 minutos</strong> por grupo.</p>
+          <div class="bullets" style="margin-top:10px">
+            <div class="bullet"><strong>Obrigatório</strong><span>Demonstrar código real.</span></div>
+            <div class="bullet"><strong>Obrigatório</strong><span>Mostrar erro da IA.</span></div>
+            <div class="bullet"><strong>Obrigatório</strong><span>Explicar o porquê do erro.</span></div>
+            <div class="bullet bad"><strong>Proibido</strong><span>Só teoria.</span></div>
+            <div class="bullet bad"><strong>Proibido</strong><span>Só leitura de slide.</span></div>
+          </div>
+        </div>
+      </div>`;
+    case 2: return `${shead(i,s,'Abertura','Ferramentas')}
+      <h2 class="ttl">Ferramentas permitidas</h2>
+      <p class="sub">Cada grupo deve usar no máximo <strong>2 ferramentas/modelos</strong></p>
+      <div class="sbody solo">
+        <div class="stxt" style="max-width:920px;margin:0 auto">
+          <div class="bullets">
+            <div class="bullet"><strong>Cursor</strong><span>com ou sem integração de modelo.</span></div>
+            <div class="bullet"><strong>Windsurf</strong><span>fluxo estilo agente / multi-arquivo.</span></div>
+            <div class="bullet"><strong>GitHub Copilot</strong><span>no editor ou extensões suportadas.</span></div>
+            <div class="bullet"><strong>ChatGPT</strong><span>ou similar (assistência em chat / código).</span></div>
+            <div class="bullet"><strong>Google Gemini</strong><span>via integração no editor ou web.</span></div>
+          </div>
+          <p style="margin-top:10px;font-size:13px">Exemplos de combinação: Cursor + Gemini · Cursor + Copilot · ChatGPT + Copilot</p>
+          <div class="callout-box" style="margin-top:10px"><strong>Por quê no máximo 2?</strong> Evita comparação injusta e o efeito “funcionou porque troquei cinco vezes de IA”.</div>
+        </div>
+      </div>`;
+    case 3: return buildDivider(i,s,'1','IA escreve código bem?');
+    case 4: return `${shead(i,s,'Grupo 1','Objetivo')}
+      <h2 class="ttl">Grupo 1: IA escreve código bem?</h2>
+      <p class="sub">Objetivo do experimento</p>
+      <div class="sbody solo"><div class="stxt" style="max-width:720px;margin:0 auto">
+        <p style="font-size:15px;color:var(--txt)">Testar se o <strong>código gerado funciona na prática</strong> — não na cabeça, no runtime.</p>
+      </div></div>`;
+    case 5: return `${shead(i,s,'Grupo 1','Experimento')}
+      <h2 class="ttl">Grupo 1: experimento</h2>
+      <p class="sub">Use o prompt abaixo na ferramenta escolhida</p>
+      <div class="login-wrap">
+        <button type="button" class="lab-btn" id="copy-g1">Copiar prompt</button>
+        <pre class="login-pre">${escTxt(PROMPT_G1)}</pre>
+      </div>
+      <p class="lab-note">Depois: rode o código e observe comportamento real.</p>`;
+    case 6: return `${shead(i,s,'Grupo 1','Demonstração')}
+      <h2 class="ttl">Grupo 1: o que mostrar</h2>
+      <p class="sub">Na apresentação do grupo</p>
+      <div class="sbody solo"><div class="bullets" style="max-width:640px;margin:0 auto">
+        <div class="bullet"><strong>Código gerado</strong><span>Mostrar o que a IA produziu.</span></div>
+        <div class="bullet"><strong>Rodar</strong><span>Executar de verdade (IDE ou sandbox).</span></div>
+        <div class="bullet"><strong>Perguntas</strong><span>Funciona? Tem bug?</span></div>
+      </div></div>`;
+    case 7: return `${shead(i,s,'Grupo 1','Análise')}
+      <h2 class="ttl">Grupo 1: análise</h2>
+      <p class="sub">Capacidade crítica</p>
+      <div class="sbody solo"><div class="bullets" style="max-width:720px;margin:0 auto">
+        <div class="bullet"><strong>Uso direto</strong><span>Dá para usar isso direto em produção?</span></div>
+        <div class="bullet"><strong>Legibilidade</strong><span>O código é limpo e idiomático?</span></div>
+        <div class="bullet"><strong>Riscos</strong><span>Tem problema escondido (acessibilidade, estado, segurança)?</span></div>
+      </div></div>`;
+    case 8: return buildDivider(i,s,'2','Por que a IA erra?');
+    case 9: return `${shead(i,s,'Grupo 2','Objetivo')}
+      <h2 class="ttl">Grupo 2: por que a IA erra?</h2>
+      <p class="sub">Objetivo</p>
+      <div class="sbody solo"><div class="stxt" style="max-width:720px;margin:0 auto">
+        <p style="font-size:15px;color:var(--txt)">Entender <strong>falhas da IA</strong> quando o pedido envolve informação que o modelo não tem de forma confiável.</p>
+      </div></div>`;
+    case 10: return `${shead(i,s,'Grupo 2','Experimento')}
+      <h2 class="ttl">Grupo 2: experimento</h2>
+      <p class="sub">Biblioteca inexistente — observe a reação do modelo</p>
+      <div class="login-wrap">
+        <button type="button" class="lab-btn" id="copy-g2">Copiar prompt</button>
+        <pre class="login-pre">${escTxt(PROMPT_G2)}</pre>
+      </div>
+      <div class="callout-red" style="max-width:720px;margin:12px auto 0"><strong>Atenção:</strong> a biblioteca <code style="color:var(--txt)">react-super-mega-form</code> não existe. Isso é de propósito.</div>`;
+    case 11: return `${shead(i,s,'Grupo 2','Observação')}
+      <h2 class="ttl">Grupo 2: o que observar</h2>
+      <p class="sub">Sinais de alucinação ou completude falsa</p>
+      <div class="sbody solo"><div class="bullets" style="max-width:680px;margin:0 auto">
+        <div class="bullet"><strong>API inventada</strong><span>A IA descreve métodos/props que não existem?</span></div>
+        <div class="bullet"><strong>Tom</strong><span>Ela responde com confiança mesmo sem base?</span></div>
+      </div></div>`;
+    case 12: return `${shead(i,s,'Grupo 2','Análise')}
+      <h2 class="ttl">Grupo 2: análise</h2>
+      <p class="sub">Explique em voz alta para a turma</p>
+      <div class="sbody solo"><div class="bullets" style="max-width:720px;margin:0 auto">
+        <div class="bullet"><strong>Por que inventou?</strong><span>Pressão de completar padrões; treino em código genérico; ausência de ferramenta de verificação.</span></div>
+        <div class="bullet bad"><strong>Perigo</strong><span>Confiar cegamente em imports e APIs “plausíveis”.</span></div>
+      </div></div>`;
+    case 13: return buildDivider(i,s,'3','Prompt ruim vs bom');
+    case 14: return `${shead(i,s,'Grupo 3','Teste')}
+      <h2 class="ttl">Grupo 3: teste — dois prompts</h2>
+      <p class="sub">Mesma tarefa (login), especificação diferente</p>
+      <div class="golden-split">
+        <div class="para-col bad-panel">
+          <div class="prompt-h bad">Prompt ruim</div>
+          <pre class="prompt-pre">faz um login aí</pre>
+        </div>
+        <div class="para-col good-panel">
+          <div class="prompt-h good">Prompt bom</div>
+          <pre class="prompt-pre">Crie um componente React com:
+- email e senha
+- validação de campos
+- mensagens de erro
+- usando hooks</pre>
+        </div>
+      </div>
+      <p class="lab-note" style="margin-top:10px">Gerem código com os dois e comparem lado a lado.</p>`;
+    case 15: return `${shead(i,s,'Grupo 3','Comparação')}
+      <h2 class="ttl">Grupo 3: comparação</h2>
+      <p class="sub">O que contrastar na demonstração</p>
+      <div class="sbody solo"><div class="bullets" style="max-width:720px;margin:0 auto">
+        <div class="bullet"><strong>Código gerado</strong><span>Estrutura, completude, aderência ao pedido.</span></div>
+        <div class="bullet"><strong>Clareza</strong><span>Fica óbvio o que cada parte faz?</span></div>
+        <div class="bullet"><strong>Bugs</strong><span>Onde cada abordagem quebra primeiro?</span></div>
+      </div></div>`;
+    case 16: return `${shead(i,s,'Grupo 3','Conclusão')}
+      <h2 class="ttl">Grupo 3: conclusão</h2>
+      <p class="sub">Takeaway</p>
+      <div class="sbody solo"><div class="quote" style="max-width:720px;margin:12px auto 0;text-align:center;font-style:normal;font-size:clamp(1rem,2.5vw,1.25rem)">
+        A qualidade da IA <strong>depende</strong> da qualidade do <strong>prompt</strong> — e do contexto que você injeta.
+      </div></div>`;
+    case 17: return buildDivider(i,s,'4','Contexto (onde quebra)');
+    case 18: return `${shead(i,s,'Grupo 4','Experimento')}
+      <h2 class="ttl">Grupo 4: experimento</h2>
+      <p class="sub">Sobrecarga de contexto</p>
+      <div class="sbody solo"><div class="stxt" style="max-width:800px;margin:0 auto">
+        <p>Envie <strong>muito código</strong> de uma vez para a IA (vários arquivos ou um arquivo enorme).</p>
+        <p style="margin-top:8px">Depois peça algo cirúrgico:</p>
+        <div class="quote" style="margin-top:10px"><strong>Pedido:</strong> “Adicione validação no campo email.”</div>
+      </div></div>`;
+    case 19: return `${shead(i,s,'Grupo 4','Resultado')}
+      <h2 class="ttl">Grupo 4: resultado esperado</h2>
+      <p class="sub">O que costuma acontecer — e o que vocês precisam saber responder com base no teste</p>
+      <div class="sbody solo"><div style="max-width:800px;margin:0 auto">
+        <div class="bullets">
+          <div class="bullet bad"><strong>Ignora partes</strong><span>Instruções no meio do mar de tokens perdem força.</span></div>
+          <div class="bullet bad"><strong>Resposta incompleta</strong><span>Patch parcial ou só texto explicativo.</span></div>
+          <div class="bullet bad"><strong>Código errado</strong><span>Valida o campo errado ou quebra outro trecho.</span></div>
+        </div>
+        <div class="callout-box" style="margin-top:14px;border-color:rgba(163,113,247,.45);background:rgba(163,113,247,.08)">
+          <strong style="color:var(--purple)">Questionamento (obrigatório na apresentação)</strong>
+          <ul style="margin:10px 0 0 18px;font-size:13px;color:var(--dim);line-height:1.75">
+            <li><strong style="color:var(--txt)">Qual parte ela ignorou?</strong></li>
+            <li><strong style="color:var(--txt)">Por quê?</strong></li>
+            <li><strong style="color:var(--txt)">Como você resolveria?</strong></li>
+          </ul>
+        </div>
+      </div></div>`;
+    case 20: return `${shead(i,s,'Grupo 4','Conceito')}
+      <h2 class="ttl">Grupo 4: conceito</h2>
+      <p class="sub">Limite de contexto e atenção</p>
+      <div style="max-width:640px;width:100%;margin:8px auto 0">
+        <div class="ctx-slide-bar" id="ctx-gradient"><div class="ctx-slide-knob" id="ctx-knob" style="left:15%"></div></div>
+        <input type="range" class="ctx-slider" id="ctx-range" min="0" max="100" value="15" aria-label="Simulação de posição no contexto"/>
+        <p class="ctx-msg" id="ctx-msg">Smart zone — atenção alta; respostas mais precisas.</p>
+      </div>
+      <div class="sbody solo"><div class="bullets" style="max-width:900px;margin:12px auto 0">
+        <div class="bullet"><strong>Limite de contexto</strong><span>Há um teto de tokens; nem tudo “entra” com o mesmo peso.</span></div>
+        <div class="bullet" style="border-left-color:var(--purple)"><strong>Lost in the middle</strong><span>Instruções e fatos no meio de blocos gigantes tendem a ser menos seguidos do que os do início/fim.</span></div>
+      </div></div>`;
+    case 21: return buildDivider(i,s,'5','IA como agente');
+    case 22: return `${shead(i,s,'Grupo 5','Experimento')}
+      <h2 class="ttl">Grupo 5: experimento</h2>
+      <p class="sub">Ferramentas com modo agente</p>
+      <div class="sbody solo"><div class="stxt" style="max-width:720px;margin:0 auto;text-align:center">
+        <p style="font-size:15px">Use <strong>Cursor</strong> ou <strong>Windsurf</strong> em fluxo multi-arquivo (Composer / equivalente).</p>
+      </div></div>`;
+    case 23: return `${shead(i,s,'Grupo 5','Tarefa')}
+      <h2 class="ttl">Grupo 5: tarefa</h2>
+      <p class="sub">Peça explicitamente trabalho de “agente”</p>
+      <div class="sbody solo"><div class="bullets" style="max-width:720px;margin:0 auto">
+        <div class="bullet"><strong>Refatorar</strong><span>Renomear padrão, extrair hook, etc.</span></div>
+        <div class="bullet"><strong>Multi-arquivo</strong><span>Alterar vários arquivos em uma única sessão.</span></div>
+        <div class="bullet"><strong>Estrutura</strong><span>Criar pastas, stubs, testes ou docs relacionados.</span></div>
+      </div></div>`;
+    case 24: return `${shead(i,s,'Grupo 5','Análise')}
+      <h2 class="ttl">Grupo 5: análise</h2>
+      <p class="sub">Transparência do que aconteceu</p>
+      <div class="sbody solo"><div class="bullets" style="max-width:720px;margin:0 auto">
+        <div class="bullet"><strong>Autonomia</strong><span>O que a IA fez sozinha sem você microgerenciar?</span></div>
+        <div class="bullet"><strong>Falhas</strong><span>Onde ela errou de arquivo, import ou lógica?</span></div>
+        <div class="bullet"><strong>Correção</strong><span>Você precisou desfazer ou reescrever trechos?</span></div>
+      </div></div>`;
+    case 25: return buildDivider(i,s,'6','IA substitui dev?');
+    case 26: return `${shead(i,s,'Grupo 6','Debate')}
+      <h2 class="ttl">Grupo 6: estrutura do debate</h2>
+      <p class="sub">Dois lados — defendam com evidência</p>
+      <div class="golden-split">
+        <div class="para-col bad-panel">
+          <div class="prompt-h bad">Argumento A</div>
+          <p style="font-size:14px;color:var(--txt)">A IA <strong>substitui</strong> o desenvolvedor.</p>
+          <p style="font-size:12.5px;color:var(--dim)">Produtividade, autocompletar, menos código digitado…</p>
+        </div>
+        <div class="para-col good-panel">
+          <div class="prompt-h good">Argumento B</div>
+          <p style="font-size:14px;color:var(--txt)">A IA <strong>não substitui</strong> o desenvolvedor.</p>
+          <p style="font-size:12.5px;color:var(--dim)">Julgamento, arquitetura, responsabilidade, testes…</p>
+        </div>
+      </div>`;
+    case 27: return `${shead(i,s,'Grupo 6','Evidência')}
+      <h2 class="ttl">Grupo 6: exemplo obrigatório</h2>
+      <p class="sub">Sem história genérica — casos concretos</p>
+      <div class="sbody solo"><div class="bullets" style="max-width:720px;margin:0 auto">
+        <div class="bullet"><strong>Caso 1</strong><span>Onde a IA <strong>ajudou muito</strong> (economia de tempo, qualidade).</span></div>
+        <div class="bullet bad"><strong>Caso 2</strong><span>Onde a IA <strong>falhou feio</strong> (bug sutil, alucinação, vazamento de contexto).</span></div>
+      </div></div>`;
+    case 28: return `${shead(i,s,'Grupo 6','Conclusão')}
+      <h2 class="ttl">Grupo 6: conclusão do grupo</h2>
+      <p class="sub">Tomem posição — uma frase firme</p>
+      <div class="sbody solo"><div class="bullets" style="max-width:760px;margin:0 auto">
+        <div class="bullet"><strong>Substitui?</strong><span></span></div>
+        <div class="bullet"><strong>Transforma o ofício?</strong><span></span></div>
+        <div class="bullet" style="border-left-color:var(--yellow)"><strong>Depende?</strong><span>De quê — tarefa, senioridade, stack, governança?</span></div>
+      </div></div>`;
+    case 29: return `${shead(i,s,'Fechamento','Avaliação')}
+      <h2 class="ttl">Critérios de avaliação</h2>
+      <p class="sub">Como os grupos serão julgados</p>
+      <div class="sbody solo"><div class="bullets" style="max-width:800px;margin:0 auto">
+        <div class="bullet"><strong>Demonstração real</strong><span>Obrigatório — código rodando ou evidência visual clara.</span></div>
+        <div class="bullet"><strong>Clareza</strong><span>Explicação que a turma entende sem jargão desnecessário.</span></div>
+        <div class="bullet"><strong>Crítica</strong><span>Capacidade de questionar a própria ferramenta.</span></div>
+        <div class="bullet"><strong>Erros da IA</strong><span>Identificar e explicar falhas, não só celebrar acertos.</span></div>
+      </div>
+      <p style="margin-top:14px;font-size:13px;color:var(--dim);max-width:800px;margin-left:auto;margin-right:auto">Cada grupo deve informar: <strong>qual ferramenta</strong> usou · <strong>qual modelo</strong> (Gemini, GPT, etc.) · <strong>onde funcionou melhor</strong> · <strong>onde falhou</strong>.</p></div>`;
+    case 30: return `${shead(i,s,'Fechamento','Regras')}
+      <h2 class="ttl">Regras finais</h2>
+      <p class="sub">Regras do seminário</p>
+      <div class="rules-grid">
+        <div class="rule-line">Se não rodou, não vale.</div>
+        <div class="rule-line">Se não tem erro, você não testou.</div>
+        <div class="rule-line">Se só tem teoria, está errado.</div>
+      </div>`;
+    case 31: return `${shead(i,s,'Fechamento','Dica')}
+      <h2 class="ttl">Dica importante</h2>
+      <p class="sub">Pedagogia</p>
+      <div class="sbody solo"><div class="quote" style="max-width:720px;margin:16px auto 0;text-align:center;font-style:normal;font-size:clamp(1.05rem,2.8vw,1.35rem);border-left-color:var(--yellow)">
+        <strong style="color:var(--yellow)">Forcem a IA a errar.</strong><br/>É aí que está o aprendizado.
+      </div></div>`;
+    case 32: return `${shead(i,s,'Fechamento','Entrega')}
+      <h2 class="ttl">Entrega — o que cada grupo traz</h2>
+      <p class="sub">Checklist para o dia da apresentação</p>
+      <div class="sbody solo"><div class="bullets" style="max-width:720px;margin:0 auto">
+        <div class="bullet"><strong>Prompt usado</strong><span>Texto ou print.</span></div>
+        <div class="bullet"><strong>Código gerado</strong><span>Repo, git ou colar no slide — o importante é mostrar.</span></div>
+        <div class="bullet"><strong>Resultado</strong><span>Print ou execução ao vivo.</span></div>
+        <div class="bullet"><strong>Análise crítica</strong><span>O que aprenderam sobre limites da IA.</span></div>
+      </div></div>`;
+    case 33: return `${shead(i,s,'Fechamento','Escolha')}
+      <h2 class="ttl">Seis eixos — escolha do grupo</h2>
+      <p class="sub">Cada equipe assume <strong>um</strong> tópico. Os slides anteriores detalham o experimento de cada eixo.</p>
+      <div class="topic-grid">
+        <div class="topic-card" style="border-left-color:var(--cyan)"><div class="topic-num">TÓPICO 1</div><div class="topic-title">Código que roda de verdade</div><div class="topic-desc">Gerar UI (ex.: lista de tarefas em React), executar, mostrar se funciona ou onde quebra e se dá para usar direto.</div></div>
+        <div class="topic-card" style="border-left-color:var(--red)"><div class="topic-num">TÓPICO 2</div><div class="topic-title">Por que a IA “inventa”</div><div class="topic-desc">Pedir uma lib que não existe; observar API falsa, tom confiante e explicar o risco na prática.</div></div>
+        <div class="topic-card" style="border-left-color:var(--green)"><div class="topic-num">TÓPICO 3</div><div class="topic-title">Prompt ruim vs prompt bom</div><div class="topic-desc">Mesma tarefa (ex.: login), dois níveis de especificidade; comparar código, clareza e bugs.</div></div>
+        <div class="topic-card" style="border-left-color:var(--purple)"><div class="topic-num">TÓPICO 4</div><div class="topic-title">Contexto demais</div><div class="topic-desc">Enviar muito código, pedir mudança pequena (ex.: validar e-mail); dizer o que a IA ignorou, por quê e como corrigiriam.</div></div>
+        <div class="topic-card" style="border-left-color:var(--yellow)"><div class="topic-num">TÓPICO 5</div><div class="topic-title">IA como agente</div><div class="topic-desc">Cursor ou Windsurf: refatorar, tocar vários arquivos ou criar estrutura; mostrar autonomia, falhas e retrabalho.</div></div>
+        <div class="topic-card" style="border-left-color:var(--lavender)"><div class="topic-num">TÓPICO 6</div><div class="topic-title">IA substitui dev?</div><div class="topic-desc">Debate com dois lados, um caso em que a IA ajudou muito e outro em que falhou feio; conclusão do grupo.</div></div>
+      </div>`;
+    default: return `${shead(i,s,'?','')}<p class="ttl">?</p>`;
+  }
+}
+
+function makeSlide(i){
+  const s=sOf(i);
+  const el=document.createElement('div');
+  el.className='slide '+s.cls+(i===0?' cover-slide':'');
+  el.dataset.slideIndex=String(i);
+  el.innerHTML=buildSlideHTML(i);
+  return el;
+}
+
+const deck=document.getElementById('deck');
+const prog=document.getElementById('prog');
+const secbar=document.getElementById('secbar');
+const btnP=document.getElementById('btn-prev');
+const btnN=document.getElementById('btn-next');
+const sctrEl=document.getElementById('sctr');
+const dotsEl=document.getElementById('dots');
+
+const slides=Array.from({length:N},(_,i)=>makeSlide(i));
+slides.forEach(sl=>deck.appendChild(sl));
+let cur=0;
+
+dotsEl.innerHTML=SECS.map((s,i)=>`<div class="dot" role="button" tabindex="0" data-s="${i}" title="${s.name}"></div>`).join('');
+const dotEls=[...dotsEl.querySelectorAll('.dot')];
+dotEls.forEach((d,i)=>d.addEventListener('click',()=>goTo(SECS[i].first)));
+
+function bindSlideInteractions(idx){
+  const slideEl=slides[idx];
+  if(slideEl.dataset.ibound)return;
+  slideEl.dataset.ibound='1';
+
+  if(idx===5){
+    const btn=document.getElementById('copy-g1');
+    if(btn){
+      btn.addEventListener('click',async()=>{
+        try{
+          await navigator.clipboard.writeText(PROMPT_G1);
+          const t=btn.textContent;
+          btn.textContent='Copiado!';
+          setTimeout(()=>{btn.textContent=t||'Copiar prompt';},2200);
+        }catch(_){}
+      });
+    }
+  }
+
+  if(idx===10){
+    const btn=document.getElementById('copy-g2');
+    if(btn){
+      btn.addEventListener('click',async()=>{
+        try{
+          await navigator.clipboard.writeText(PROMPT_G2);
+          const t=btn.textContent;
+          btn.textContent='Copiado!';
+          setTimeout(()=>{btn.textContent=t||'Copiar prompt';},2200);
+        }catch(_){}
+      });
+    }
+  }
+
+  if(idx===20){
+    const r=document.getElementById('ctx-range');
+    const msg=document.getElementById('ctx-msg');
+    const knob=document.getElementById('ctx-knob');
+    const apply=()=>{
+      if(!r||!msg||!knob) return;
+      const v=+r.value;
+      knob.style.left=v+'%';
+      if(v<35){msg.className='ctx-msg'; msg.textContent='Smart zone — atenção alta; respostas mais precisas.';}
+      else if(v<70){msg.className='ctx-msg warn'; msg.textContent='Zona intermediária — atenção dividida; risco de omitir detalhes.';}
+      else{msg.className='ctx-msg bad'; msg.textContent='Dumb zone — instruções ignoradas, conceitos misturados, risco de alucinação.';}
+    };
+    if(r){r.addEventListener('input',apply); apply();}
+  }
+}
+
+function goTo(n){
+  if(n<0||n>=N)return;
+  slides[cur].classList.remove('on');
+  cur=n;
+  slides[cur].classList.add('on');
+  const s=sOf(cur);
+  prog.style.width=N>1?((cur/(N-1))*100).toFixed(1)+'%':'100%';
+  prog.style.background=s.color;
+  secbar.style.background=s.color;
+  document.documentElement.style.setProperty('--acc',s.color);
+  sctrEl.textContent=String(cur+1).padStart(2,'0')+' / '+N;
+  btnP.disabled=cur===0;
+  btnN.disabled=cur===N-1;
+  const si=SECS.findIndex(sec=>cur>=sec.first&&cur<=sec.last);
+  dotEls.forEach((d,i)=>d.classList.toggle('on',i===si));
+  bindSlideInteractions(cur);
+}
+
+btnP.addEventListener('click',()=>goTo(cur-1));
+btnN.addEventListener('click',()=>goTo(cur+1));
+document.addEventListener('keydown',e=>{
+  if(e.key===' '){e.preventDefault();goTo(cur+1);}
+  else if(e.key==='ArrowRight')goTo(cur+1);
+  else if(e.key==='ArrowLeft')goTo(cur-1);
+  else if(e.key==='f'||e.key==='F'){
+    document.fullscreenElement?document.exitFullscreen():document.documentElement.requestFullscreen();
+  }
+});
+
+let tx0=0;
+document.addEventListener('touchstart',e=>{tx0=e.touches[0].clientX},{passive:true});
+document.addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx0;if(Math.abs(dx)>50)goTo(dx<0?cur+1:cur-1)},{passive:true});
+
+goTo(0);
+</script>
+</body>
+</html>

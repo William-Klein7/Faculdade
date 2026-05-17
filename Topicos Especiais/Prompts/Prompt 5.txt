@@ -1,0 +1,22 @@
+Agora extraia toda a lógica de cálculo do App.jsx.
+
+O App.jsx não pode calcular:
+- subtotal
+- desconto
+- frete
+- total
+- quantidade total de itens
+
+Tudo isso deve vir do hook useCart.
+
+O hook useCart deve retornar:
+- cartItems
+- subtotal
+- discount
+- shipping
+- total
+- totalItems
+- applyCoupon
+- coupon
+
+Atualize os componentes para usar apenas esses dados.

@@ -1,0 +1,10 @@
+Agora crie um componente CouponInput.
+
+Regras:
+1. O input de cupom deve sair do App.jsx.
+2. CouponInput deve receber coupon e onCouponChange por props.
+3. O estado do cupom deve continuar centralizado no useCart.
+4. O cálculo do desconto deve atualizar automaticamente quando o usuário digitar URI10.
+5. Não duplique estado de cupom em componentes diferentes.
+
+Atualize todos os arquivos necessários.

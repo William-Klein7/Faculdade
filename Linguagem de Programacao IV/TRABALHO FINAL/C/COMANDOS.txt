@@ -1,0 +1,4 @@
+gcc chat_server.c -o chat_server.exe -lws2_32
+gcc chat_client.c -o chat_client.exe -lws2_32
+.\chat_server.exe 9000
+.\chat_client.exe 127.0.0.1 9000 <nome>

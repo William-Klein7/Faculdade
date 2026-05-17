@@ -1,0 +1,9 @@
+Agora adicione persistência com localStorage.
+
+Regras:
+1. Salve cartItems e coupon no localStorage.
+2. Ao abrir a aplicação, carregue os dados salvos.
+3. Se não houver dados salvos, use os itens padrão.
+4. Não altere a regra de desconto.
+
+Faça isso dentro do hook useCart.

@@ -1,0 +1,157 @@
+{
+"perfis_permissao": [
+	{
+		"id_perfil" : 1,
+		"nome_perfil" : "Presidencia_Executiva",
+		"recurso" : "dw_corporativo",
+		"tipo_permissao" : "LEITURA_ESTRATEGICA",
+		"criticidade" : "ALTA"
+	},
+	{
+		"id_perfil" : 2,
+		"nome_perfil" : "Operacao_COM",
+		"recurso" : "scada_operacao",
+		"tipo_permissao" : "MONITORAMENTO_OPERACIONAL",
+		"criticidade" : "ALTA"
+	},
+	{
+		"id_perfil" : 3,
+		"nome_perfil" : "Engenharia_Rede",
+		"recurso" : "engenharia_ativos",
+		"tipo_permissao" : "LEITURA_ESCRITA_TECNICA",
+		"criticidade" : "ALTA"
+	},
+	{
+		"id_perfil" : 4,
+		"nome_perfil" : "Planejamento_Energetico",
+		"recurso" : "planejamento_expansao",
+		"tipo_permissao" : "ANALISE_E_PLANEJAMENTO",
+		"criticidade" : "ALTA"
+	},
+	{
+		"id_perfil" : 5,
+		"nome_perfil" : "Gestao_Manutencao",
+		"recurso" : "manutencao_corporativa",
+		"tipo_permissao" : "GESTAO_DE_OS",
+		"criticidade" : "ALTA"
+	},
+	{
+		"id_perfil" : 6,
+		"nome_perfil" : "Equipe_Manutencao",
+		"recurso" : "ativos_campo",
+		"tipo_permissao" : "EXECUCAO_DE_OS",
+		"criticidade" : "MEDIA"
+	},
+	{
+		"id_perfil" : 7,
+		"nome_perfil" : "DBA",
+		"recurso" : "cluster_postgresql",
+		"tipo_permissao" : "ADMINISTRACAO_TOTAL",
+		"criticidade" : "CRITICA"
+	},
+	{
+		"id_perfil" : 8,
+		"nome_perfil" : "TI_Operacoes",
+		"recurso" : "infraestrutura_ti",
+		"tipo_permissao" : "OPERACAO_E_SUPORTE",
+		"criticidade" : "ALTA"
+	},
+	{
+		"id_perfil" : 9,
+		"nome_perfil" : "Leitura_Comercial",
+		"recurso" : "crm_clientes",
+		"tipo_permissao" : "LEITURA_E_ATENDIMENTO",
+		"criticidade" : "MEDIA"
+	},
+	{
+		"id_perfil" : 10,
+		"nome_perfil" : "Gestao_Comercial",
+		"recurso" : "crm_clientes",
+		"tipo_permissao" : "GESTAO_COMERCIAL",
+		"criticidade" : "ALTA"
+	},
+	{
+		"id_perfil" : 11,
+		"nome_perfil" : "Gestao_Financeira",
+		"recurso" : "erp_financeiro",
+		"tipo_permissao" : "FINANCEIRO_COMPLETO",
+		"criticidade" : "CRITICA"
+	},
+	{
+		"id_perfil" : 12,
+		"nome_perfil" : "Contabilidade_Analitica",
+		"recurso" : "contabilidade_corporativa",
+		"tipo_permissao" : "CONTABILIDADE_E_FECHAMENTO",
+		"criticidade" : "ALTA"
+	},
+	{
+		"id_perfil" : 13,
+		"nome_perfil" : "Estoque_Almoxarifado",
+		"recurso" : "estoque_corporativo",
+		"tipo_permissao" : "MOVIMENTACAO_DE_ESTOQUE",
+		"criticidade" : "MEDIA"
+	},
+	{
+		"id_perfil" : 14,
+		"nome_perfil" : "Logistica_Distribuicao",
+		"recurso" : "logistica_operacional",
+		"tipo_permissao" : "PROGRAMACAO_E_RASTREIO",
+		"criticidade" : "MEDIA"
+	},
+	{
+		"id_perfil" : 15,
+		"nome_perfil" : "RH_Gestao_Pessoas",
+		"recurso" : "rh_corporativo",
+		"tipo_permissao" : "GESTAO_DE_PESSOAS",
+		"criticidade" : "CRITICA"
+	},
+	{
+		"id_perfil" : 16,
+		"nome_perfil" : "Juridico_Corporativo",
+		"recurso" : "juridico_contratos",
+		"tipo_permissao" : "CONSULTA_PROCESSUAL",
+		"criticidade" : "ALTA"
+	},
+	{
+		"id_perfil" : 17,
+		"nome_perfil" : "Compliance_Regulatorio",
+		"recurso" : "compliance_aneel",
+		"tipo_permissao" : "COMPLIANCE_E_REGULACAO",
+		"criticidade" : "CRITICA"
+	},
+	{
+		"id_perfil" : 18,
+		"nome_perfil" : "Seguranca_Ocupacional",
+		"recurso" : "sst_corporativo",
+		"tipo_permissao" : "GESTAO_SST",
+		"criticidade" : "ALTA"
+	},
+	{
+		"id_perfil" : 19,
+		"nome_perfil" : "Seguranca_Patrimonial",
+		"recurso" : "patrimonial_monitoramento",
+		"tipo_permissao" : "MONITORAMENTO_DE_ACESSO",
+		"criticidade" : "ALTA"
+	},
+	{
+		"id_perfil" : 20,
+		"nome_perfil" : "Meio_Ambiente",
+		"recurso" : "ambiental_licencas",
+		"tipo_permissao" : "GESTAO_AMBIENTAL",
+		"criticidade" : "ALTA"
+	},
+	{
+		"id_perfil" : 21,
+		"nome_perfil" : "Treinamento_Corporativo",
+		"recurso" : "lms_corporativo",
+		"tipo_permissao" : "TREINAMENTO_E_CERTIFICACAO",
+		"criticidade" : "MEDIA"
+	},
+	{
+		"id_perfil" : 22,
+		"nome_perfil" : "Pesquisa_Desenvolvimento",
+		"recurso" : "laboratorio_pd",
+		"tipo_permissao" : "PESQUISA_E_PROTOTIPAGEM",
+		"criticidade" : "ALTA"
+	}
+]}

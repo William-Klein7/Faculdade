@@ -1,0 +1,25 @@
+{
+    "configurations": [
+        {
+            "name": "Win32",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "C:/glfw-3.4.bin.WIN64/include",
+                "C:/glew-2.3.1/include",
+                "C:/freeglut/include"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "GLEW_STATIC"
+            ],
+            "windowsSdkVersion": "10.0.18362.0",
+            "compilerPath": "C:/w64devkit/bin/g++.exe",
+            "cStandard": "c11",
+            "cppStandard": "c++17",
+            "intelliSenseMode": "windows-gcc-x64"
+        }
+    ],
+    "version": 4
+}

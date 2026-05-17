@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  db_auditoria:
+    image: postgres:15-alpine
+    container_name: postgres_trabalho_auditoria
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: adminpassword
+      POSTGRES_DB: auditoria_db
+    ports:
+      - "5435:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  pgdata:
